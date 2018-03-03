@@ -7,6 +7,7 @@ import reducer from './reducers'
 import CardsStatusBar from './components/CardsStatusBar'
 import Decks from './views/Decks'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import { lightGray, blueIOS } from './utils/colors'
 
 const Tabs = TabNavigator(
     {
@@ -14,7 +15,9 @@ const Tabs = TabNavigator(
             screen: Decks,
             navigationOptions: {
                 tabBarLabel: 'Decks',
-                tabBarIcon: ({ tintColor }) => <Icon name={"glass"} size={30} color={tintColor} />
+                tabBarIcon: ({ tintColor }) => (
+                    <Icon name={'glass'} size={30} color={tintColor} />
+                )
             }
         }
     },
@@ -23,9 +26,9 @@ const Tabs = TabNavigator(
             header: null
         },
         tabBarOptions: {
-            activeTintColor: '#000',
+            activeTintColor: blueIOS,
             style: {
-                backgroundColor: '#fff'
+                backgroundColor: lightGray
             }
         }
     }
@@ -38,15 +41,19 @@ const MainNavigator = StackNavigator({
 })
 
 class App extends Component {
-    
     store = createStore(reducer)
 
     render() {
-        return <Provider store={this.store}>
+        return (
+            <Provider store={this.store}>
                 <View style={{ flex: 1 }}>
+                    <CardsStatusBar
+                        backgroundColor={lightGray}
+                    />
                     <MainNavigator />
                 </View>
             </Provider>
+        )
     }
 }
 
