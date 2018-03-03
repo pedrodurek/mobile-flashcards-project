@@ -1,7 +1,7 @@
-import React, {Component} from 'react'
-import { View, Text, FlatList } from 'react-native'
+import React, { Component } from 'react'
+import { View, Text, FlatList, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
-import { fetchDecks } from '../actions/cards'
+import { fetchDecks } from '../actions/decks'
 
 class Decks extends Component {
     componentDidMount() {
@@ -9,14 +9,22 @@ class Decks extends Component {
     }
 
     renderDeck = ({ item }) => (
-        <View></View>
+        <TouchableOpacity>
+            <Text>{item.title}</Text>
+            <Text>{`${item.numCards} cards`}</Text>
+        </TouchableOpacity>
     )
 
     render() {
         const { decks } = this.props
+        console.log(decks)
         return (
             <View>
-                <FlatList data={decks} renderItem={this.renderDeck}/>
+                <FlatList
+                    data={decks}
+                    renderItem={this.renderDeck}
+                    keyExtractor={(item) => item.title}
+                />
             </View>
         )
     }

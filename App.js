@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import { StyleSheet, Text, View, Platform } from 'react-native'
 import { TabNavigator, StackNavigator } from 'react-navigation'
+import thunk from 'redux-thunk'
 import reducer from './reducers'
 import CardsStatusBar from './components/CardsStatusBar'
 import Decks from './views/Decks'
@@ -41,11 +42,11 @@ const MainNavigator = StackNavigator({
 })
 
 class App extends Component {
-    store = createStore(reducer)
-
+    
     render() {
+        const store = createStore(reducer, applyMiddleware(thunk))
         return (
-            <Provider store={this.store}>
+            <Provider store={store}>
                 <View style={{ flex: 1 }}>
                     <CardsStatusBar
                         backgroundColor={lightGray}
