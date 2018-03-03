@@ -4,10 +4,11 @@ import { Provider } from 'react-redux'
 import { StyleSheet, Text, View, Platform } from 'react-native'
 import { TabNavigator, StackNavigator } from 'react-navigation'
 import thunk from 'redux-thunk'
-import reducer from './reducers'
+import Icon from 'react-native-vector-icons/FontAwesome'
 import CardsStatusBar from './components/CardsStatusBar'
 import Decks from './views/Decks'
-import Icon from 'react-native-vector-icons/FontAwesome'
+import Cards from './views/Cards'
+import reducer from './reducers'
 import { lightGray, blueIOS } from './utils/colors'
 
 const Tabs = TabNavigator(
@@ -38,7 +39,11 @@ const Tabs = TabNavigator(
 const MainNavigator = StackNavigator({
     Home: {
         screen: Tabs
+    },
+    Cards: {
+        screen: Cards
     }
+
 })
 
 class App extends Component {

@@ -9,15 +9,16 @@ class Decks extends Component {
     }
 
     renderDeck = ({ item }) => (
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => this.showDeck(item)}>
             <Text>{item.title}</Text>
             <Text>{`${item.numCards} cards`}</Text>
         </TouchableOpacity>
     )
 
+    showDeck = ({ title }) => this.props.navigation.navigate('Cards', { title })
+
     render() {
         const { decks } = this.props
-        console.log(decks)
         return (
             <View>
                 <FlatList
