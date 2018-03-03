@@ -15,7 +15,7 @@ class Decks extends Component {
         </TouchableOpacity>
     )
 
-    showDeck = ({ title }) => this.props.navigation.navigate('Cards', { title })
+    showDeck = (deck) => this.props.navigation.navigate('Cards', { deck })
 
     render() {
         const { decks } = this.props
