@@ -8,6 +8,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import CardsStatusBar from './components/CardsStatusBar'
 import Decks from './views/Decks'
 import Cards from './views/Cards'
+import AddCards from './views/AddCards'
 import reducer from './reducers'
 import { lightGray, blueIOS } from './utils/colors'
 
@@ -42,6 +43,9 @@ const MainNavigator = StackNavigator({
     },
     Cards: {
         screen: Cards
+    },
+    AddCards: {
+        screen: AddCards
     }
 
 })
