@@ -20,7 +20,7 @@ class Cards extends Component {
 			title: this.props.navigation.state.params.deck.title
 		})
 
-	startQuiz = () => this.props.navigation.navigate('AddCard')
+	startQuiz = () => this.props.navigation.navigate('Quiz')
 
 	render() {
 		const { navigation } = this.props
