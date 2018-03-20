@@ -28,10 +28,10 @@ const decks = {
     }
 }
 
-export const getDecks = () => 
-   AsyncStorage.getItem(DECKS_STORAGE_KEY).then((result) => {
-        if (!result) {
-            // let decks = JSON.parse(result)
+export const getDecks = () =>
+    AsyncStorage.getItem(DECKS_STORAGE_KEY).then((result) => {
+        if (result) {
+            let decks = JSON.parse(result)
             return Object.keys(decks).map((deck) => ({
                 title: decks[deck].title,
                 numCards: decks[deck].questions.length
@@ -40,11 +40,18 @@ export const getDecks = () =>
         return []
     })
 
-
-export const getCardsFromDeck = (deckTitle) => 
+export const getCardsFromDeck = (deckTitle) =>
     AsyncStorage.getItem(DECKS_STORAGE_KEY).then((result) => {
         if (result) {
             return result[deckTitle].questions
         }
         return []
     })
+
+export const saveDeckTitle = (title) => {
+    let deck = {}
+    deck[title] = { title, questions: [] }
+    return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify(deck))
+        
+}
+
