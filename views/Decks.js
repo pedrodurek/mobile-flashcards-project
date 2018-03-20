@@ -2,8 +2,12 @@ import React, { Component } from 'react'
 import { View, Text, FlatList, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { fetchDecks } from '../actions/decks'
+import HeaderCards from '../components/HeaderCards'
 
 class Decks extends Component {
+    static navigationOptions = ({ navigation }) => ({
+        header: <HeaderCards title={'Decks'} />
+    })
     componentDidMount() {
         this.props.fetchDecks()
     }

@@ -1,17 +1,23 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View } from 'react-native'
 import { connect } from 'react-redux'
 import { fetchCardsFromDeck } from '../actions/cards'
+import HeaderCards from '../components/HeaderCards'
+import { Button, Text } from 'native-base'
 
 class Cards extends Component {
     static navigationOptions = ({ navigation }) => ({
-        title: navigation.state.params.deck.title
+        header: (
+            <HeaderCards
+                title={navigation.state.params.deck.title}
+                navigation={navigation}
+            />
+        )
     })
 
-    addCard = () => {}
+    addCard = () => this.props.navigation.navigate('AddCard')
 
-    startQuiz = () => 
-        this.props.navigation.navigate('AddCards')
+    startQuiz = () => this.props.navigation.navigate('AddCard')
 
     render() {
         const { navigation } = this.props
@@ -19,16 +25,12 @@ class Cards extends Component {
             <View>
                 <Text>{navigation.state.params.deck.title}</Text>
                 <Text>{`${navigation.state.params.deck.numCards} cards`}</Text>
-                <TouchableOpacity onPress={this.addCard}>
-                    <Text>
-                        Add Card
-                    </Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={this.startQuiz}>
-                    <Text>
-                        Start Quiz
-                    </Text>
-                </TouchableOpacity>
+                <Button primary onPress={this.addCard}>
+                    <Text>Add Card</Text>
+                </Button>
+                <Button primary onPress={this.startQuiz}>
+                    <Text>Start Quiz</Text>
+                </Button>
             </View>
         )
     }
