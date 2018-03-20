@@ -22,9 +22,8 @@ class NewDeck extends Component {
         })
     }
 
-    handleChange = (title) => {
-        this.setState({ title })
-    }
+    handleChange = (title) => this.setState({ title })
+    
 
     render() {
         const { title } = this.state
