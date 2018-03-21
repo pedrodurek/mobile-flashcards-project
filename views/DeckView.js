@@ -20,7 +20,8 @@ class DeckView extends Component {
             title: this.props.deck.title
         })
 
-    startQuiz = () => this.props.navigation.navigate('Quiz')
+    startQuiz = () =>
+        this.props.navigation.navigate('Quiz', { title: this.props.deck.title })
 
     render() {
         const { deck } = this.props
@@ -40,11 +41,11 @@ class DeckView extends Component {
 }
 
 const mapStateToProps = ({ decks }, { navigation }) => ({
-	deck: decks.find((deck) => deck.title === navigation.state.params.title),
+    deck: decks.find((deck) => deck.title === navigation.state.params.title)
 })
 
 const mapDispatchToProps = {
-	fetchCardsFromDeck
+    fetchCardsFromDeck
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(DeckView)

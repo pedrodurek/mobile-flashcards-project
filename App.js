@@ -9,6 +9,7 @@ import Decks from './views/Decks'
 import DeckView from './views/DeckView'
 import AddCard from './views/AddCard'
 import NewDeck from './views/NewDeck'
+import Quiz from './views/Quiz'
 import reducer from './reducers'
 import { lightGray, blueIOS } from './utils/colors'
 
@@ -55,6 +56,9 @@ const MainNavigator = StackNavigator({
     },
     AddCard: {
         screen: AddCard
+    },
+    Quiz: {
+        screen: Quiz
     }
 })
 

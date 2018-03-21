@@ -48,7 +48,7 @@ export const getDeck = (title) =>
 export const getCardsFromDeck = (deckTitle) =>
     AsyncStorage.getItem(DECKS_STORAGE_KEY).then((result) => {
         if (result) {
-            return result[deckTitle].questions
+            return JSON.parse(result)[deckTitle].questions
         }
         return []
     })
