@@ -32,9 +32,11 @@ class DeckView extends Component {
                 <Button primary onPress={this.addCard}>
                     <Text>Add Card</Text>
                 </Button>
-                <Button primary onPress={this.startQuiz}>
-                    <Text>Start Quiz</Text>
-                </Button>
+                {deck.numCards > 0 && (
+                    <Button primary onPress={this.startQuiz}>
+                        <Text>Start Quiz</Text>
+                    </Button>
+                )}
             </View>
         )
     }
