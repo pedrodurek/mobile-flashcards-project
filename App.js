@@ -6,7 +6,7 @@ import { TabNavigator, StackNavigator } from 'react-navigation'
 import thunk from 'redux-thunk'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import Decks from './views/Decks'
-import Cards from './views/Cards'
+import DeckView from './views/DeckView'
 import AddCard from './views/AddCard'
 import NewDeck from './views/NewDeck'
 import reducer from './reducers'
@@ -50,8 +50,8 @@ const MainNavigator = StackNavigator({
     Home: {
         screen: Tabs
     },
-    Cards: {
-        screen: Cards
+    DeckView: {
+        screen: DeckView
     },
     AddCard: {
         screen: AddCard

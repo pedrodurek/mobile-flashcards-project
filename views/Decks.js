@@ -13,13 +13,13 @@ class Decks extends Component {
     }
 
     renderDeck = ({ item }) => (
-        <TouchableOpacity onPress={() => this.showDeck(item)}>
+        <TouchableOpacity onPress={() => this.showDeck(item.title)}>
             <Text>{item.title}</Text>
             <Text>{`${item.numCards} cards`}</Text>
         </TouchableOpacity>
     )
 
-    showDeck = (deck) => this.props.navigation.navigate('Cards', { deck })
+    showDeck = (title) => this.props.navigation.navigate('DeckView', { title })
 
     render() {
         const { decks } = this.props
