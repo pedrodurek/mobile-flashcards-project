@@ -56,6 +56,7 @@ class Quiz extends Component {
                                         <Text>
                                             {cards[indexCards].question}
                                         </Text>
+                                        <Text>Answer</Text>
                                     </Body>
                                 </CardItem>
                             </Card>
@@ -63,6 +64,7 @@ class Quiz extends Component {
                                 <CardItem>
                                     <Body>
                                         <Text>{cards[indexCards].answer}</Text>
+                                        <Text>Question</Text>
                                         <Button
                                             success
                                             onPress={this.handleCorrect}
