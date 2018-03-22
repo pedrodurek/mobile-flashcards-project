@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import { Alert } from 'react-native'
 import { connect } from 'react-redux'
-import HeaderCards from '../components/HeaderCards'
+import HeaderCards from '@components/HeaderCards'
 import { Container, Content, Text, Item, Input, Button } from 'native-base'
-import { addDeck } from '../actions/decks'
+import { addDeck } from '@actions/decks'
 
 class NewDeck extends Component {
     static navigationOptions = ({ navigation }) => ({
-        header: <HeaderCards title={'New Deck'} />
+        header: <HeaderCards title={'New Deck'} navigation={navigation} />
     })
 
     state = {
@@ -23,7 +23,6 @@ class NewDeck extends Component {
     }
 
     handleChange = (title) => this.setState({ title })
-    
 
     render() {
         const { title } = this.state

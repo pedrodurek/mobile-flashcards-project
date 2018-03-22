@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { View } from 'react-native'
 import { connect } from 'react-redux'
-import { fetchCardsFromDeck } from '../actions/cards'
-import HeaderCards from '../components/HeaderCards'
+import { fetchCardsFromDeck } from '@actions/cards'
+import HeaderCards from '@components/HeaderCards'
 import { Button, Text } from 'native-base'
 
 class DeckView extends Component {

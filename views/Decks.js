@@ -6,7 +6,7 @@ import HeaderCards from '../components/HeaderCards'
 
 class Decks extends Component {
     static navigationOptions = ({ navigation }) => ({
-        header: <HeaderCards title={'Decks'} />
+        header: <HeaderCards title={'Decks'} navigation={navigation} />
     })
     componentDidMount() {
         this.props.fetchDecks()

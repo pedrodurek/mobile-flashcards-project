@@ -11,8 +11,8 @@ import {
     Text
 } from 'native-base'
 
-const HeaderCards = ({ title, navigation }) => (
-    <Header>
+const HeaderCards = ({ title, navigation, style }) => (
+    <Header style={style}>
         {navigation ? (
             <Left>
                 <Button transparent onPress={() => navigation.goBack()}>

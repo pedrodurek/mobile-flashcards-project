@@ -9,8 +9,8 @@ import {
     Body,
     Button
 } from 'native-base'
-import HeaderCards from '../components/HeaderCards'
-import { fetchCardsFromDeck } from '../actions/cards'
+import HeaderCards from '@components/HeaderCards'
+import { fetchCardsFromDeck } from '@actions/cards'
 import FlipCard from 'react-native-flip-card'
 
 class Quiz extends Component {

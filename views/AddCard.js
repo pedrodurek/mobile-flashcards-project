@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import { View, Alert } from 'react-native'
 import { Input, Item, Button, Text } from 'native-base'
 import { connect } from 'react-redux'
-import HeaderCards from '../components/HeaderCards'
-import { addCard } from '../actions/cards'
-import { incrementCards } from '../actions/decks'
+import HeaderCards from '@components/HeaderCards'
+import { addCard } from '@actions/cards'
+import { incrementCards } from '@actions/decks'
 
 class AddCard extends Component {
     static navigationOptions = ({ navigation }) => ({
