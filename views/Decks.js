@@ -1,8 +1,14 @@
 import React, { Component } from 'react'
 import { View, Text, FlatList, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
-import { fetchDecks } from '../actions/decks'
-import HeaderCards from '../components/HeaderCards'
+import { fetchDecks } from '@actions/decks'
+import HeaderCards from '@components/HeaderCards'
+import { Container, H2, ItemSeparator } from '@styles'
+import styled from 'styled-components'
+
+const ButtonList = styled.TouchableOpacity`
+    padding: 30px 0;
+`
 
 class Decks extends Component {
     static navigationOptions = ({ navigation }) => ({
@@ -13,10 +19,10 @@ class Decks extends Component {
     }
 
     renderDeck = ({ item }) => (
-        <TouchableOpacity onPress={() => this.showDeck(item.title)}>
-            <Text>{item.title}</Text>
-            <Text>{`${item.numCards} cards`}</Text>
-        </TouchableOpacity>
+        <ButtonList onPress={() => this.showDeck(item.title)}>
+            <H2>{item.title}</H2>
+            <H2>{`${item.numCards} cards`}</H2>
+        </ButtonList>
     )
 
     showDeck = (title) => this.props.navigation.navigate('DeckView', { title })
@@ -24,13 +30,16 @@ class Decks extends Component {
     render() {
         const { decks } = this.props
         return (
-            <View>
+            <Container>
                 <FlatList
+                    style={{width: '100%'}}
                     data={decks}
                     renderItem={this.renderDeck}
+                    ItemSeparatorComponent={ItemSeparator}
                     keyExtractor={(item) => item.title}
+                    ListFooterComponent={ItemSeparator}
                 />
-            </View>
+            </Container>
         )
     }
 }

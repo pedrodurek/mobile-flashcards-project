@@ -14,7 +14,7 @@ const Icon = styled.View`
 `
 const H1 = styled.Text`
     fontSize: 20px;
-    color: white;
+    color: rgba(255, 255, 255, 0.7);
     fontWeight: bold;
 `
 
@@ -22,7 +22,7 @@ const HomeOption = ({ title, icon, color, handle }) => (
     <TouchableOpacity style={{ backgroundColor: color }} onPress={handle}>
         <ContainerBtn>
             <Icon>
-                <MaterialIcons name={icon} size={35} color="white" />
+                <MaterialIcons name={icon} size={35} color="rgba(255, 255, 255, 0.7)" />
             </Icon>
             <View>
                 <H1>{title}</H1>

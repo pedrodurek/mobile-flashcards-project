@@ -11,19 +11,19 @@ import {
     Text
 } from 'native-base'
 
-const HeaderCards = ({ title, navigation, style }) => (
-    <Header style={style}>
+const HeaderCards = ({ title, navigation }) => (
+    <Header style={{ backgroundColor: '#1F5768' }}>
         {navigation ? (
             <Left>
                 <Button transparent onPress={() => navigation.goBack()}>
-                    <Icon name="arrow-back" />
+                    <Icon name="arrow-back" style={{ color: 'rgba(255, 255, 255, 0.7)' }} />
                 </Button>
             </Left>
         ) : (
             <Left />
         )}
         <Body>
-            <Title>{title}</Title>
+            <Title style={{ color: 'rgba(255, 255, 255, 0.7)' }}>{title}</Title>
         </Body>
         <Right />
     </Header>

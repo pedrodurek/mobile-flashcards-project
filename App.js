@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
-import { StyleSheet, Text, View, Platform } from 'react-native'
+import { StyleSheet, Text, View, Platform, StatusBar } from 'react-native'
 import { StackNavigator } from 'react-navigation'
 import thunk from 'redux-thunk'
 import Decks from './views/Decks'
@@ -36,9 +36,10 @@ const MainNavigator = StackNavigator({
 class App extends Component {
     render() {
         const store = createStore(reducer, applyMiddleware(thunk))
+        StatusBar.setBarStyle('light-content', true);
         return (
             <Provider store={store}>
-                <View style={{ flex: 1 }}>
+                <View style={{ flex: 1, backgroundColor: '#43A047'}}>
                     <MainNavigator />
                 </View>
             </Provider>

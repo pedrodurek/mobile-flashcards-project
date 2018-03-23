@@ -15,7 +15,8 @@
                     "@components": "./components",
                     "@reducers": "./reducers",
                     "@utils": "./utils",
-                    "@colors": "./utils/colors.js"
+                    "@colors": "./utils/colors.js",
+                    "@styles": "./utils/styles.js"
                 }
             }
         ]
