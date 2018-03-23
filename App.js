@@ -36,10 +36,10 @@ const MainNavigator = StackNavigator({
 class App extends Component {
     render() {
         const store = createStore(reducer, applyMiddleware(thunk))
-        StatusBar.setBarStyle('light-content', true);
         return (
             <Provider store={store}>
                 <View style={{ flex: 1, backgroundColor: '#43A047'}}>
+                    <StatusBar barStyle="light-content" /> 
                     <MainNavigator />
                 </View>
             </Provider>

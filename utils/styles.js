@@ -1,5 +1,3 @@
-import React from 'react'
-import { View } from 'react-native'
 import styled from 'styled-components'
 
 export const Container = styled.View`
@@ -24,12 +22,19 @@ export const H2 = styled.Text`
     color: rgba(255, 255, 255, 0.7);
 `
 
-export const ItemSeparator = () => (
-    <View
-        style={{
-            height: 2,
-            width: '100%',
-            backgroundColor: 'rgba(255, 255, 255, 0.7)'
-        }}
-    />
-)
+export const ItemSeparator = styled.View`
+    height: 2;
+    width: 100%;
+    backgroundColor: rgba(255, 255, 255, 0.7);
+`
+
+export const Input = styled.TextInput`
+    borderRadius: 10px;
+    padding: 15px;
+    marginBottom: 20px;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.7);
+    width: 100%;
+    fontSize: 18;
+    fontWeight: bold;
+`

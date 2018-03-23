@@ -3,7 +3,9 @@ import { View } from 'react-native'
 import { connect } from 'react-redux'
 import { fetchCardsFromDeck } from '@actions/cards'
 import HeaderCards from '@components/HeaderCards'
-import { Button, Text } from 'native-base'
+import { Text } from 'native-base'
+import { Container, H1 } from '@styles'
+import Button from '@components/Button'
 
 class DeckView extends Component {
     static navigationOptions = ({ navigation }) => ({
@@ -26,18 +28,18 @@ class DeckView extends Component {
     render() {
         const { deck } = this.props
         return (
-            <View>
-                <Text>{deck.title}</Text>
-                <Text>{`${deck.numCards} cards`}</Text>
-                <Button primary onPress={this.addCard}>
-                    <Text>Add Card</Text>
-                </Button>
+            <Container padding center>
+                <View style={{ margin: 60 }}>
+                    <H1>{deck.title}</H1>
+                    <H1>{`${deck.numCards} cards`}</H1>
+                </View>
+                <Button onPress={this.addCard}>Add Card</Button>
                 {deck.numCards > 0 && (
-                    <Button primary onPress={this.startQuiz}>
-                        <Text>Start Quiz</Text>
+                    <Button style={{ marginTop: 20 }} onPress={this.startQuiz}>
+                        Start Quiz
                     </Button>
                 )}
-            </View>
+            </Container>
         )
     }
 }

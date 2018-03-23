@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import { View, Alert } from 'react-native'
-import { Input, Item, Button, Text } from 'native-base'
 import { connect } from 'react-redux'
 import HeaderCards from '@components/HeaderCards'
+import Button from '@components/Button'
 import { addCard } from '@actions/cards'
 import { incrementCards } from '@actions/decks'
+import { Container, Input, H1 } from '@styles'
+
 
 class AddCard extends Component {
     static navigationOptions = ({ navigation }) => ({
@@ -34,25 +36,23 @@ class AddCard extends Component {
     render() {
         const { question, answer } = this.state
         return (
-            <View>
-                <Item regular>
-                    <Input
-                        value={question}
-                        placeholder="Enter with the question"
-                        onChangeText={this.handleQuestion}
-                    />
-                </Item>
-                <Item regular>
-                    <Input
-                        value={answer}
-                        placeholder="Enter with the answer"
-                        onChangeText={this.handleAnswer}
-                    />
-                </Item>
-                <Button onPress={this.submit}>
-                    <Text>Submit</Text>
-                </Button>
-            </View>
+            <Container padding center>
+                <H1 style={{marginTop: 40}}>Enter with your question and answer</H1>
+                <Input
+                    style={{marginTop: 50}}
+                    value={question}
+                    placeholder="Enter with the question"
+                    onChangeText={this.handleQuestion}
+                    placeholderTextColor="rgba(255, 255, 255, 0.7)" 
+                />
+                <Input
+                    value={answer}
+                    placeholder="Enter with the answer"
+                    onChangeText={this.handleAnswer}
+                    placeholderTextColor="rgba(255, 255, 255, 0.7)" 
+                />
+                <Button onPress={this.submit}>Submit</Button>
+            </Container>
         )
     }
 }
