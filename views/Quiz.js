@@ -1,17 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import {
-    Container,
-    Content,
-    Card,
-    CardItem,
-    Text,
-    Body,
-    Button
-} from 'native-base'
+import { Button } from 'native-base'
+import { View, Text, TouchableOpacity } from 'react-native'
 import HeaderCards from '@components/HeaderCards'
 import { fetchCardsFromDeck } from '@actions/cards'
 import FlipCard from 'react-native-flip-card'
+import { Container, Card, H1 } from '@styles'
+import { MaterialIcons } from '@expo/vector-icons'
 
 class Quiz extends Component {
     static navigationOptions = ({ navigation }) => ({
@@ -43,45 +38,43 @@ class Quiz extends Component {
     render() {
         const { indexCards, countCorrect } = this.state
         const { cards } = this.props
-        console.log(cards)
         return (
-            <Container>
+            <Container padding center>
                 {indexCards < cards.length ? (
-                    <Content>
+                    <View style={{ height: '95%' }}>
                         <Text>{`${indexCards + 1}/${cards.length}`}</Text>
-                        <FlipCard flipHorizontal={true} flipVertical={false}>
-                            <Card>
-                                <CardItem>
-                                    <Body>
-                                        <Text>
-                                            {cards[indexCards].question}
-                                        </Text>
-                                        <Text>Answer</Text>
-                                    </Body>
-                                </CardItem>
+                        <FlipCard
+                            flipHorizontal={true}
+                            flipVertical={false}
+                            style={{ borderWidth: 0 }}
+                        >
+                            <Card color="#1F5768">
+                                <TouchableOpacity style={{ alignSelf: 'flex-end', marginTop: 13, marginRight: 13 }}>
+                                    <MaterialIcons
+                                        name="star"
+                                        size={35}
+                                        color="rgba(255, 255, 255, 0.7)"
+                                    />
+                                </TouchableOpacity>
+                                <H1 style={{ marginTop: 40 }}>
+                                    {cards[indexCards].question}
+                                </H1>
+                                <Text>Answer</Text>
                             </Card>
-                            <Card>
-                                <CardItem>
-                                    <Body>
-                                        <Text>{cards[indexCards].answer}</Text>
-                                        <Text>Question</Text>
-                                        <Button
-                                            success
-                                            onPress={this.handleCorrect}
-                                        >
-                                            <Text>Correct</Text>
-                                        </Button>
-                                        <Button
-                                            danger
-                                            onPress={this.handleIncorrect}
-                                        >
-                                            <Text>Incorrect</Text>
-                                        </Button>
-                                    </Body>
-                                </CardItem>
+                            <Card color="#3059B8">
+                                <H1 style={{ marginTop: 40 }}>
+                                    {cards[indexCards].answer}
+                                </H1>
+                                <Text>Question</Text>
+                                <Button success onPress={this.handleCorrect}>
+                                    <Text>Correct</Text>
+                                </Button>
+                                <Button danger onPress={this.handleIncorrect}>
+                                    <Text>Incorrect</Text>
+                                </Button>
                             </Card>
                         </FlipCard>
-                    </Content>
+                    </View>
                 ) : (
                     <Text>
                         {`Percentage: ${(

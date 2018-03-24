@@ -23,7 +23,7 @@ class Home extends Component {
                     title="New Deck"
                     icon="add-circle-outline"
                     color="#43A047"
-                    handle={() => navigate('NewDeck')}
+                    handle={() => navigate('NewEditDeck')}
                 />
                 <ItemSeparator />
                 <HomeOption

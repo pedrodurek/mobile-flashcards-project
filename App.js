@@ -7,7 +7,7 @@ import thunk from 'redux-thunk'
 import Decks from './views/Decks'
 import DeckView from './views/DeckView'
 import AddCard from './views/AddCard'
-import NewDeck from './views/NewDeck'
+import NewEditDeck from './views/NewEditDeck'
 import Quiz from './views/Quiz'
 import Home from './views/Home'
 import reducer from './reducers'
@@ -19,8 +19,8 @@ const MainNavigator = StackNavigator({
     Decks: {
         screen: Decks
     },
-    NewDeck: {
-        screen: NewDeck
+    NewEditDeck: {
+        screen: NewEditDeck
     },
     DeckView: {
         screen: DeckView

@@ -16,12 +16,12 @@ class NewEditDeck extends Component {
 		title: ''
     }
     
-    componentDidMount() {
-        const { title } = this.props.navigation.state.params
-        if (title) {
-            this.setState({ title })
-        }
-    }
+    // componentDidMount() {
+    //     const { title } = this.props.navigation.state.params
+    //     if (title) {
+    //         this.setState({ title })
+    //     }
+    // }
 
 	submit = () => {
 		this.props.addDeck(this.state.title).then(() => {
