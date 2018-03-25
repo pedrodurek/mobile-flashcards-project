@@ -106,6 +106,7 @@ class Decks extends Component {
         const { decks } = this.props
         return (
             <Container>
+                <ItemSeparator />
                 <FlatList
                     style={{ width: '100%' }}
                     data={decks}

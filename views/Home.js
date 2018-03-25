@@ -3,7 +3,8 @@ import { View, Text, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import HomeOption from '@components/HomeOption'
 import HeaderCards from '@components/HeaderCards'
-import { ItemSeparator } from '@styles'
+import { ItemSeparator, Container } from '@styles'
+import { green } from '@colors'
 
 class Home extends Component {
     static navigationOptions = () => ({
@@ -17,29 +18,29 @@ class Home extends Component {
     render() {
         const { navigate } = this.props.navigation
         return (
-            <View style={{backgroundColor: '#C0C0FF', height: '100%' }}>
+            <Container>
                 <ItemSeparator />
                 <HomeOption
                     title="New Deck"
-                    icon="add-circle-outline"
-                    color="#43A047"
+                    icon="add-circle"
+                    color={green}
                     handle={() => navigate('NewEditDeck')}
                 />
                 <ItemSeparator />
                 <HomeOption
                     title="Decks"
                     icon="collections"
-                    color="#8333FF"
+                    color={green}
                     handle={() => navigate('Decks')}
                 />
                 <ItemSeparator />
                 <HomeOption
-                    title="Favourites"
-                    icon="star-border"
-                    color="#E85123"
+                    title="Favorites"
+                    icon="star"
+                    color={green}
                 />
                 <ItemSeparator />
-            </View>
+            </Container>
         )
     }
 }

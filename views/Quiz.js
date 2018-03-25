@@ -1,12 +1,21 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Button } from 'native-base'
 import { View, Text, TouchableOpacity } from 'react-native'
 import HeaderCards from '@components/HeaderCards'
 import { fetchCardsFromDeck } from '@actions/cards'
 import FlipCard from 'react-native-flip-card'
-import { Container, Card, H1 } from '@styles'
-import { MaterialIcons } from '@expo/vector-icons'
+import { Container, Card, H1, H2, H3, Badge } from '@styles'
+import ProgressBar from '@components/ProgressBar'
+import RoundIconButton from '@components/RoundIconButton'
+import HeaderCard from '@components/HeaderCard'
+import Button from '@components/Button'
+import { purple, darkGreen, green, red } from '@colors'
+import styled from 'styled-components'
+
+const Buttons = styled.View`
+    flex-direction: row;
+    margin-top: 20;
+`
 
 class Quiz extends Component {
     static navigationOptions = ({ navigation }) => ({
@@ -35,54 +44,70 @@ class Quiz extends Component {
         }))
     }
 
+    handleReset = () => {
+        this.setState({ indexCards: 0, countCorrect: 0 })
+    }
+
     render() {
         const { indexCards, countCorrect } = this.state
         const { cards } = this.props
+        const percenCorrect = (countCorrect / cards.length * 100).toFixed(2)
+        const percenDone = ((indexCards + 1) / cards.length * 100).toFixed(2)
         return (
             <Container padding center>
                 {indexCards < cards.length ? (
                     <View style={{ height: '95%' }}>
-                        <Text>{`${indexCards + 1}/${cards.length}`}</Text>
+                        <ProgressBar
+                            value={`${indexCards + 1}/${cards.length}`}
+                            percentage={percenDone}
+                        />
                         <FlipCard
                             flipHorizontal={true}
                             flipVertical={false}
-                            style={{ borderWidth: 0 }}
+                            style={{ borderWidth: 0, marginTop: 10 }}
                         >
-                            <Card color="#1F5768">
-                                <TouchableOpacity style={{ alignSelf: 'flex-end', marginTop: 13, marginRight: 13 }}>
-                                    <MaterialIcons
-                                        name="star"
-                                        size={35}
-                                        color="rgba(255, 255, 255, 0.7)"
-                                    />
-                                </TouchableOpacity>
-                                <H1 style={{ marginTop: 40 }}>
+                            <Card padding color={darkGreen}>
+                                <HeaderCard title="Answer" />
+                                <H1 mgTop="80px" mgBottom="20px">
                                     {cards[indexCards].question}
                                 </H1>
-                                <Text>Answer</Text>
                             </Card>
-                            <Card color="#3059B8">
-                                <H1 style={{ marginTop: 40 }}>
+                            <Card padding color={purple}>
+                                <HeaderCard title="Question" />
+                                <H1 mgTop="80px" mgBottom="20px">
                                     {cards[indexCards].answer}
                                 </H1>
-                                <Text>Question</Text>
-                                <Button success onPress={this.handleCorrect}>
-                                    <Text>Correct</Text>
-                                </Button>
-                                <Button danger onPress={this.handleIncorrect}>
-                                    <Text>Incorrect</Text>
-                                </Button>
+                                <Buttons>
+                                    <RoundIconButton
+                                        name="check"
+                                        color={green}
+                                        size={30}
+                                        onPress={this.handleCorrect}
+                                    />
+                                    <RoundIconButton
+                                        name="close"
+                                        color={red}
+                                        size={30}
+                                        padding="10px 13px"
+                                        onPress={this.handleIncorrect}
+                                    />
+                                </Buttons>
                             </Card>
                         </FlipCard>
                     </View>
                 ) : (
-                    <Text>
-                        {`Percentage: ${(
-                            countCorrect /
-                            cards.length *
-                            100
-                        ).toFixed(2)} %`}
-                    </Text>
+                    <View>
+                        <Badge mgTop="80px" mgBottom="20px">
+                            <H2>{`${percenCorrect} %`}</H2>
+                        </Badge>
+                        <Badge mgBottom="20px">
+                            <H2>{`Cards: ${cards.length}`}</H2>
+                        </Badge>
+                        <Badge mgBottom="20px">
+                            <H2>{`Hits: ${countCorrect}`}</H2>
+                        </Badge>
+                        <Button onPress={this.handleReset}>Restart</Button>
+                    </View>
                 )}
             </Container>
         )

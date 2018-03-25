@@ -3,8 +3,10 @@ import PropTypes from 'prop-types'
 import { View, Text, TouchableOpacity } from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons'
 import styled from 'styled-components'
+import { H2 } from '@styles'
+import { white } from '@colors'
 
-const ContainerBtn = styled.View`
+const ContentOption = styled.View`
     flex-direction: row;
     margin: 40px 0;
     align-items: center;
@@ -12,27 +14,23 @@ const ContainerBtn = styled.View`
 const Icon = styled.View`
     margin: 0 40px 0 20px;
 `
-const H1 = styled.Text`
-    font-size: 20px;
-    color: rgba(255, 255, 255, 0.7);
-    font-weight: bold;
+
+const ButtonOption = styled.TouchableOpacity`
+    background-color: ${(props) => props.color || white};
+    width: 100%;
 `
 
 const HomeOption = ({ title, icon, color, handle }) => (
-    <TouchableOpacity style={{ backgroundColor: color }} onPress={handle}>
-        <ContainerBtn>
+    <ButtonOption color={color} onPress={handle}>
+        <ContentOption>
             <Icon>
-                <MaterialIcons
-                    name={icon}
-                    size={35}
-                    color="rgba(255, 255, 255, 0.7)"
-                />
+                <MaterialIcons name={icon} size={35} color={white} />
             </Icon>
             <View>
-                <H1>{title}</H1>
+                <H2>{title}</H2>
             </View>
-        </ContainerBtn>
-    </TouchableOpacity>
+        </ContentOption>
+    </ButtonOption>
 )
 
 HomeOption.propTypes = {}

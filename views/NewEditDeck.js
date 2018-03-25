@@ -37,7 +37,7 @@ class NewEditDeck extends Component {
 		const { title } = this.state
 		return (
 			<Container padding center>
-				<H1 style={{ marginTop: 40 }}>
+				<H1 mgTop="40px">
 					What is the title of your new deck?
 				</H1>
 				<Input

@@ -1,67 +1,81 @@
 import { Dimensions } from 'react-native'
 import styled from 'styled-components'
+import { green, white, transWhite, darkGreen } from '@colors'
 
 export const Container = styled.View`
     flex: 1;
-    backgroundColor: #43A047;
+    background-color: ${green};
     height: 100%;
-    padding: ${props => props.padding ? '20px' : '0'};
-    alignItems: ${props => props.center ? 'center' : 'flex-start'};
+    padding: ${(props) => (props.padding ? '20px' : '0')};
+    align-items: ${(props) => (props.center ? 'center' : 'flex-start')};
 `
 
 export const Content = styled.View`
     flex: 1;
-    backgroundColor: #43A047;
-    height: 100%;
-    padding: ${props => props.padding ? '20px' : '0'};
-    alignItems: ${props => props.center ? 'center' : 'flex-start'};
+    padding: ${(props) => (props.padding ? '20px' : '0')};
 `
 
-export const H1 = styled.Text`
-    fontSize: 25px;
-    fontWeight: bold;
-    textAlign: center;
-    color: rgba(255, 255, 255, 0.7);
+export const Text = styled.Text`
+    font-weight: bold;
+    text-align: center;
+    color: ${white};
 `
 
-export const H2 = styled.Text`
-    fontSize: 20px;
-    fontWeight: bold;
-    textAlign: center;
-    color: rgba(255, 255, 255, 0.7);
+export const H1 = Text.extend`
+    font-size: 25px;
+    margin-top: ${(props) => props.mgTop || '0px'};
+    margin-bottom: ${(props) => props.mgBottom || '0px'};
+`
+
+export const H2 = Text.extend`
+    font-size: 20px;
 `
 
 export const H3 = styled.Text`
-    fontSize: 18px;
-    fontWeight: bold;
-    color: rgba(255, 255, 255, 0.7);
+    font-size: 18px;
+    font-weight: bold;
+    text-align: ${(props) => (props.center ? 'center' : 'justify')};
+    color: ${(props) => props.color || white};
+`
+
+export const Span = Text.extend`
+    fontSize: 11;
 `
 
 export const ItemSeparator = styled.View`
     height: 2;
     width: 100%;
-    backgroundColor: rgba(255, 255, 255, 0.7);
+    background-color: ${white};
 `
 
 export const Input = styled.TextInput`
-    borderRadius: 10px;
+    border-radius: 10px;
     padding: 15px;
-    marginBottom: 20px;
-    background-color: rgba(255, 255, 255, 0.2);
-    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 20px;
+    background-color: ${transWhite};
+    color: ${white};
     width: 100%;
-    fontSize: 18;
-    fontWeight: bold;
+    font-size: 18;
+    font-weight: bold;
 `
+
+export const Badge = styled.View`
+    border-radius: 30px;
+    padding: 10px 0px;
+    margin-top: ${(props) => props.mgTop || '0px'};
+    margin-bottom: ${(props) => props.mgBottom || '0px'};
+    background-color: ${darkGreen};
+`
+
 export const Card = styled.View`
     flex: 1;
-    backgroundColor: ${props => props.color || '#fff'};
-    alignItems: center;
-    borderRadius: 10px;
+    background-color: ${(props) => props.color || white};
+    align-items: center;
+    border-radius: 10px;
     width: ${Dimensions.get('window').width - 55};
     shadow-offset: 0px 1px;
     shadow-opacity: 0.67;
-    shadow-radius: 4;
+    shadow-radius: 2;
     shadow-color: #000;
-
+    padding: ${(props) => (props.padding ? '20px' : '0')};
 `

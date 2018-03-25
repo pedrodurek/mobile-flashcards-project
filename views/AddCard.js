@@ -6,6 +6,7 @@ import Button from '@components/Button'
 import { addCard } from '@actions/cards'
 import { incrementCards } from '@actions/decks'
 import { Container, Input, H1 } from '@styles'
+import { white } from '@colors'
 
 
 class AddCard extends Component {
@@ -37,19 +38,19 @@ class AddCard extends Component {
         const { question, answer } = this.state
         return (
             <Container padding center>
-                <H1 style={{marginTop: 40}}>Enter with your question and answer</H1>
+                <H1 mgTop="40px">Enter with your question and answer</H1>
                 <Input
                     style={{marginTop: 50}}
                     value={question}
                     placeholder="Enter with the question"
                     onChangeText={this.handleQuestion}
-                    placeholderTextColor="rgba(255, 255, 255, 0.7)" 
+                    placeholderTextColor={white} 
                 />
                 <Input
                     value={answer}
                     placeholder="Enter with the answer"
                     onChangeText={this.handleAnswer}
-                    placeholderTextColor="rgba(255, 255, 255, 0.7)" 
+                    placeholderTextColor={white} 
                 />
                 <Button onPress={this.submit}>Submit</Button>
             </Container>
