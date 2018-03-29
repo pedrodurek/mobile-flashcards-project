@@ -61,14 +61,29 @@ export const saveDeckTitle = (title) => {
 
 export const updateDeck = (oldTitle, newTitle) => 
     getDeck(oldTitle).then((deck) => {
-        return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
-            [newTitle]: {
-               ...deck,
-               title: newTitle
-            }
-        }))
+        removeDeck(oldTitle).then(() =>
+            AsyncStorage.mergeItem(
+                DECKS_STORAGE_KEY,
+                JSON.stringify({
+                    [newTitle]: {
+                        ...deck,
+                        title: newTitle
+                    }
+                })
+            )
+        )
     })
 
+
+export const removeDeck = (title) =>
+    AsyncStorage.getItem(DECKS_STORAGE_KEY).then((result) => {
+        let json = JSON.parse(result)
+        delete json[title]
+        return AsyncStorage.setItem(
+            DECKS_STORAGE_KEY,
+            JSON.stringify(json)
+        ).then(() => Promise.resolve())
+    })
 
 export const addCardToDeck = (title, card) =>
     getDeck(title).then((result) =>

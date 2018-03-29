@@ -5,7 +5,7 @@ import HeaderCards from '@components/HeaderCards'
 import Button from '@components/Button'
 import { Text, Item } from 'native-base'
 import { Container, H1, Input } from '@styles'
-import { addDeck } from '@actions/decks'
+import { addDeck, renameDeck } from '@actions/decks'
 
 class NewEditDeck extends Component {
 	static navigationOptions = ({ navigation }) => ({
@@ -13,22 +13,34 @@ class NewEditDeck extends Component {
 	})
 
 	state = {
-		title: ''
+		title: '',
+		oldTitle: ''
     }
     
-    // componentDidMount() {
-    //     const { title } = this.props.navigation.state.params
-    //     if (title) {
-    //         this.setState({ title })
-    //     }
-    // }
+    componentDidMount() {
+		if (this.props.navigation.state.params) {
+			const { title } = this.props.navigation.state.params
+			if (title) {
+				this.setState({ title, oldTitle: title })
+			}
+		}
+    }
 
 	submit = () => {
-		this.props.addDeck(this.state.title).then(() => {
-			this.setState({ title: '' })
-			Alert.alert('Deck created!')
-			this.props.navigation.navigate('Decks')
-		})
+		const { oldTitle, title } = this.state
+		if (oldTitle) {
+			this.props.renameDeck(oldTitle, title).then(() => {
+				this.setState({ title: '', oldTitle: '' })
+				Alert.alert('Deck updated!')
+                this.props.navigation.popToTop()
+			})
+		} else {
+			this.props.addDeck(this.state.title).then(() => {
+				this.setState({ title: '' })
+				Alert.alert('Deck created!')
+				this.props.navigation.popToTop()
+			})
+		}
 	}
 
 	handleChange = (title) => this.setState({ title })
@@ -56,7 +68,8 @@ class NewEditDeck extends Component {
 const mapStateToProps = (state) => ({})
 
 const mapDispatchToProps = {
-	addDeck
+    addDeck,
+    renameDeck
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewEditDeck)

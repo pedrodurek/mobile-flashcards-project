@@ -48,6 +48,8 @@ class Quiz extends Component {
         this.setState({ indexCards: 0, countCorrect: 0 })
     }
 
+    handleEdit = (card) => {}
+
     render() {
         const { indexCards, countCorrect } = this.state
         const { cards } = this.props
@@ -67,7 +69,12 @@ class Quiz extends Component {
                             style={{ borderWidth: 0, marginTop: 10 }}
                         >
                             <Card padding color={darkGreen}>
-                                <HeaderCard title="Answer" />
+                                <HeaderCard
+                                    handleEdit={() =>
+                                        this.handleEdit(cards[indexCards])
+                                    }
+                                    title="Answer"
+                                />
                                 <H1 mgTop="80px" mgBottom="20px">
                                     {cards[indexCards].question}
                                 </H1>

@@ -12,9 +12,9 @@ const Header = styled.View`
     width: 100%;
 `
 
-const HeaderCard = ({ title }) => (
+const HeaderCard = ({ title, handleEdit }) => (
     <Header>
-        <IconButton name="edit" />
+        <IconButton name="edit" onPress={handleEdit} />
         <View style={{ marginTop: 10 }}>
             <H3 color={orange}>{title}</H3>
         </View>

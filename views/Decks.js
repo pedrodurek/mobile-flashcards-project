@@ -8,7 +8,7 @@ import {
     Alert
 } from 'react-native'
 import { connect } from 'react-redux'
-import { fetchDecks } from '@actions/decks'
+import { fetchDecks, deleteDeck } from '@actions/decks'
 import HeaderCards from '@components/HeaderCards'
 import { Container, H2, H3, ItemSeparator } from '@styles'
 import styled from 'styled-components'
@@ -25,11 +25,43 @@ class Decks extends Component {
     })
 
     state = {
-        currentlyOpenSwipeable: null
+        currentSwipeable: null,
+        currentDeck: null
     }
 
     componentDidMount() {
         this.props.fetchDecks()
+    }
+
+    handleUpdateList() {
+        if (this.state.currentSwipeable) {
+            this.state.currentSwipeable.recenter()
+            this.setState({ currentSwipeable: null, currentDeck: null })
+        }
+    }
+
+    handleEditDeck = ({ title }) => {
+        this.handleUpdateList()
+        this.props.navigation.navigate('NewEditDeck', { title })
+    }
+
+    handleRemoveDeck = ({ title }) => {
+        Alert.alert(
+            'Remove Deck',
+            'Are you sure you want to remove this deck?',
+            [
+                {
+                    text: 'Cancel',
+                    style: 'cancel',
+                    onPress: () =>
+                        this.state.currentSwipeable.recenter()
+                },
+                {
+                    text: 'OK',
+                    onPress: () => this.props.deleteDeck(title)
+                }
+            ]
+        )
     }
 
     rightButtons = [
@@ -40,7 +72,7 @@ class Decks extends Component {
                 justifyContent: 'center',
                 paddingLeft: 15
             }}
-            onPress={() => Alert.alert('Teste')}
+            onPress={() => this.handleEditDeck(this.state.currentDeck)}
         >
             <View>
                 <H3>Rename</H3>
@@ -53,7 +85,7 @@ class Decks extends Component {
                 justifyContent: 'center',
                 paddingLeft: 15
             }}
-            onPress={() => Alert.alert('Teste2')}
+            onPress={() => this.handleRemoveDeck(this.state.currentDeck)}
         >
             <H3>Remove</H3>
         </TouchableHighlight>
@@ -65,18 +97,20 @@ class Decks extends Component {
             rightButtonWidth={100}
             onRightButtonsOpenRelease={(event, gestureState, swipeable) => {
                 if (
-                    this.state.currentlyOpenSwipeable &&
-                    this.state.currentlyOpenSwipeable !== swipeable
+                    this.state.currentSwipeable &&
+                    this.state.currentSwipeable !== swipeable
                 ) {
-                    this.state.currentlyOpenSwipeable.recenter()
+                    this.state.currentSwipeable.recenter()
                 }
                 this.setState({
-                    currentlyOpenSwipeable: swipeable
+                    currentSwipeable: swipeable,
+                    currentDeck: item
                 })
             }}
             onRightButtonsCloseRelease={() =>
                 this.setState({
-                    currentlyOpenSwipeable: null
+                    currentSwipeable: null,
+                    currentDeck: null
                 })
             }
         >
@@ -91,12 +125,11 @@ class Decks extends Component {
     )
 
     showDeck = (title) => {
-        if (this.state.currentlyOpenSwipeable) {
-            this.state.currentlyOpenSwipeable.recenter()
+        if (this.state.currentSwipeable) {
+            this.state.currentSwipeable.recenter()
             this.setState({
-                currentlyOpenSwipeable: null
+                currentSwipeable: null
             })
-            console.log('Teste')
         } else {
             this.props.navigation.navigate('DeckView', { title })
         }
@@ -110,9 +143,10 @@ class Decks extends Component {
                 <FlatList
                     style={{ width: '100%' }}
                     data={decks}
+                    extraData={decks}
                     renderItem={this.renderDeck}
                     ItemSeparatorComponent={ItemSeparator}
-                    keyExtractor={(item) => item.title}
+                    keyExtractor={(item, index) => index}
                     ListFooterComponent={ItemSeparator}
                 />
             </Container>
@@ -125,7 +159,8 @@ const mapStateToProps = ({ decks }) => ({
 })
 
 const mapDispatchToProps = {
-    fetchDecks
+    fetchDecks,
+    deleteDeck
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Decks)

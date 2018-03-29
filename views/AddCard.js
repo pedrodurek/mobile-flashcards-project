@@ -9,7 +9,7 @@ import { Container, Input, H1 } from '@styles'
 import { white } from '@colors'
 
 
-class AddCard extends Component {
+class AddEditCard extends Component {
     static navigationOptions = ({ navigation }) => ({
         header: <HeaderCards title={'Add Card'} navigation={navigation} />
     })
@@ -63,4 +63,4 @@ const mapDispatchToProps = {
     incrementCards
 }
 
-export default connect(null, mapDispatchToProps)(AddCard)
+export default connect(null, mapDispatchToProps)(AddEditCard)
