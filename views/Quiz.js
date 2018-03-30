@@ -1,8 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { View, Text, TouchableOpacity } from 'react-native'
+import {
+    View,
+    Text,
+    TouchableOpacity,
+    ActionSheetIOS,
+    Alert
+} from 'react-native'
 import HeaderCards from '@components/HeaderCards'
-import { fetchCardsFromDeck } from '@actions/cards'
+import { fetchCardsFromDeck, deleteCard } from '@actions/cards'
+import { decrementCards } from '@actions/decks'
 import FlipCard from 'react-native-flip-card'
 import { Container, Card, H1, H2, H3, Badge } from '@styles'
 import ProgressBar from '@components/ProgressBar'
@@ -48,7 +55,46 @@ class Quiz extends Component {
         this.setState({ indexCards: 0, countCorrect: 0 })
     }
 
-    handleEdit = (card) => {}
+    handleEdit = (card, index) => {
+        const { title } = this.props.navigation.state.params
+        ActionSheetIOS.showActionSheetWithOptions(
+            {
+                options: ['Cancel', 'Edit', 'Remove'],
+                destructiveButtonIndex: 2,
+                cancelButtonIndex: 0
+            },
+            (buttonIndex) => {
+                if (buttonIndex === 1) {
+                    this.props.navigation.navigate('AddEditCard', {
+                        card,
+                        index,
+                        title
+                    })
+                } else if (buttonIndex === 2) {
+                    Alert.alert(
+                        'Remove Card',
+                        'Are you sure do want to remove this card?',
+                        [
+                            {
+                                text: 'Cancel',
+                                style: 'cancel'
+                            },
+                            {
+                                text: 'OK',
+                                onPress: () =>
+                                    this.props
+                                        .deleteCard(title, index)
+                                        .then(() => {
+                                            this.props.decrementCards(title)
+                                        })
+                            }
+                        ],
+                        { cancelable: false }
+                    )
+                }
+            }
+        )
+    }
 
     render() {
         const { indexCards, countCorrect } = this.state
@@ -71,7 +117,10 @@ class Quiz extends Component {
                             <Card padding color={darkGreen}>
                                 <HeaderCard
                                     handleEdit={() =>
-                                        this.handleEdit(cards[indexCards])
+                                        this.handleEdit(
+                                            cards[indexCards],
+                                            indexCards
+                                        )
                                     }
                                     title="Answer"
                                 />
@@ -126,7 +175,9 @@ const mapStateToProps = ({ cards }) => ({
 })
 
 const mapDispatchToProps = {
-    fetchCardsFromDeck
+    fetchCardsFromDeck,
+    decrementCards,
+    deleteCard
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Quiz)

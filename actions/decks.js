@@ -4,6 +4,7 @@ export const GET_ALL_DECKS = 'GET_ALL_DECKS'
 export const ADD_DECK = 'ADD_DECK'
 export const EDIT_DECK = 'EDIT_DECK'
 export const INC_CARDS = 'INC_CARDS'
+export const DEC_CARDS = 'DEC_CARDS'
 export const DELETE_DECK = 'DELETE_DECK'
 
 export const fetchDecks = () => (dispatch) => 
@@ -28,6 +29,11 @@ export const addDeck = (title) => (dispatch) =>
 
 export const incrementCards = (title) => ({
     type: INC_CARDS,
+    title
+})
+
+export const decrementCards = (title) => ({
+    type: DEC_CARDS,
     title
 })
 

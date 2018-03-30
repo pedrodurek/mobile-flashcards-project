@@ -6,7 +6,7 @@ import { StackNavigator } from 'react-navigation'
 import thunk from 'redux-thunk'
 import Decks from './views/Decks'
 import DeckView from './views/DeckView'
-import AddCard from './views/AddCard'
+import AddEditCard from './views/AddEditCard'
 import NewEditDeck from './views/NewEditDeck'
 import Quiz from './views/Quiz'
 import Home from './views/Home'
@@ -25,8 +25,8 @@ const MainNavigator = StackNavigator({
     DeckView: {
         screen: DeckView
     },
-    AddCard: {
-        screen: AddCard
+    AddEditCard: {
+        screen: AddEditCard
     },
     Quiz: {
         screen: Quiz
@@ -38,8 +38,8 @@ class App extends Component {
         const store = createStore(reducer, applyMiddleware(thunk))
         return (
             <Provider store={store}>
-                <View style={{ flex: 1, backgroundColor: '#43A047'}}>
-                    <StatusBar barStyle="light-content" /> 
+                <View style={{ flex: 1, backgroundColor: '#43A047' }}>
+                    <StatusBar barStyle="light-content" />
                     <MainNavigator />
                 </View>
             </Provider>

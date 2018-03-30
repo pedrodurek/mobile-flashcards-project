@@ -18,7 +18,7 @@ class DeckView extends Component {
     })
 
     addCard = () =>
-        this.props.navigation.navigate('AddCard', {
+        this.props.navigation.navigate('AddEditCard', {
             title: this.props.deck.title
         })
 

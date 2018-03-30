@@ -3,7 +3,8 @@ import {
     ADD_DECK,
     INC_CARDS,
     EDIT_DECK,
-    DELETE_DECK
+    DELETE_DECK,
+    DEC_CARDS
 } from '../actions/decks'
 
 const initialState = []
@@ -33,10 +34,14 @@ const decks = (state = initialState, action) => {
         case INC_CARDS:
             return state.map((deck) => {
                 if (deck.title === action.title) {
-                    return {
-                        ...deck,
-                        numCards: deck.numCards + 1
-                    }
+                    return { ...deck, numCards: deck.numCards + 1 }
+                }
+                return deck
+            })
+        case DEC_CARDS:
+            return state.map((deck) => {
+                if (deck.title === action.title) {
+                    return { ...deck, numCards: deck.numCards - 1 }
                 }
                 return deck
             })

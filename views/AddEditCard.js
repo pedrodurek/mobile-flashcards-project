@@ -3,11 +3,10 @@ import { View, Alert } from 'react-native'
 import { connect } from 'react-redux'
 import HeaderCards from '@components/HeaderCards'
 import Button from '@components/Button'
-import { addCard } from '@actions/cards'
+import { addCard, editCard } from '@actions/cards'
 import { incrementCards } from '@actions/decks'
 import { Container, Input, H1 } from '@styles'
 import { white } from '@colors'
-
 
 class AddEditCard extends Component {
     static navigationOptions = ({ navigation }) => ({
@@ -16,7 +15,17 @@ class AddEditCard extends Component {
 
     state = {
         question: '',
-        answer: ''
+        answer: '',
+        editCard: false
+    }
+
+    componentDidMount() {
+        const { card } = this.props.navigation.state.params
+        if (card) {
+            console.log('Teste')
+            const { question, answer } = card
+            this.setState({ question, answer, editCard: true })
+        }
     }
 
     handleQuestion = (question) => this.setState({ question })
@@ -24,14 +33,22 @@ class AddEditCard extends Component {
     handleAnswer = (answer) => this.setState({ answer })
 
     submit = () => {
-        const { question, answer } = this.state
-        const { title } = this.props.navigation.state.params
-        this.props.addCard(title, { question, answer }).then(() => {
-            Alert.alert('Card added!')
-            this.setState({ question: '', answer: '' })
-            this.props.incrementCards(title)
-            this.props.navigation.goBack()
-        })
+        const { question, answer, editCard } = this.state
+        const { title, index } = this.props.navigation.state.params
+        if (editCard) {
+            this.props.editCard(title, index, { question, answer }).then(() => {
+                Alert.alert('Card changed!')
+                this.setState({ question: '', answer: '' })
+                this.props.navigation.goBack()
+            })
+        } else {
+            this.props.addCard(title, { question, answer }).then(() => {
+                Alert.alert('Card added!')
+                this.setState({ question: '', answer: '' })
+                this.props.incrementCards(title)
+                this.props.navigation.goBack()
+            })
+        }
     }
 
     render() {
@@ -40,17 +57,17 @@ class AddEditCard extends Component {
             <Container padding center>
                 <H1 mgTop="40px">Enter with your question and answer</H1>
                 <Input
-                    style={{marginTop: 50}}
+                    style={{ marginTop: 50 }}
                     value={question}
                     placeholder="Enter with the question"
                     onChangeText={this.handleQuestion}
-                    placeholderTextColor={white} 
+                    placeholderTextColor={white}
                 />
                 <Input
                     value={answer}
                     placeholder="Enter with the answer"
                     onChangeText={this.handleAnswer}
-                    placeholderTextColor={white} 
+                    placeholderTextColor={white}
                 />
                 <Button onPress={this.submit}>Submit</Button>
             </Container>
@@ -60,7 +77,8 @@ class AddEditCard extends Component {
 
 const mapDispatchToProps = {
     addCard,
-    incrementCards
+    incrementCards,
+    editCard
 }
 
 export default connect(null, mapDispatchToProps)(AddEditCard)

@@ -59,7 +59,7 @@ export const saveDeckTitle = (title) => {
     return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify(deck))
 }
 
-export const updateDeck = (oldTitle, newTitle) => 
+export const updateDeck = (oldTitle, newTitle) =>
     getDeck(oldTitle).then((deck) => {
         removeDeck(oldTitle).then(() =>
             AsyncStorage.mergeItem(
@@ -73,7 +73,6 @@ export const updateDeck = (oldTitle, newTitle) =>
             )
         )
     })
-
 
 export const removeDeck = (title) =>
     AsyncStorage.getItem(DECKS_STORAGE_KEY).then((result) => {
@@ -92,6 +91,36 @@ export const addCardToDeck = (title, card) =>
             JSON.stringify({
                 [title]: {
                     questions: [...result.questions, { ...card }]
+                }
+            })
+        )
+    )
+
+export const updateCardOnDeck = (title, index, card) =>
+    getDeck(title).then((result) =>
+        AsyncStorage.mergeItem(
+            DECKS_STORAGE_KEY,
+            JSON.stringify({
+                [title]: {
+                    questions: [
+                        ...result.questions.slice(0, index),
+                        { ...card },
+                        ...result.questions.slice(index+1)
+                    ]
+                }
+            })
+        )
+    )
+    
+export const removeCardFromDeck = (title, index) =>
+    getDeck(title).then((result) =>
+        AsyncStorage.mergeItem(
+            DECKS_STORAGE_KEY,
+            JSON.stringify({
+                [title]: {
+                    questions: [
+                        ...result.questions.filter((card, i) => index !== i)
+                    ]
                 }
             })
         )
