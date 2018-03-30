@@ -22,7 +22,6 @@ class AddEditCard extends Component {
     componentDidMount() {
         const { card } = this.props.navigation.state.params
         if (card) {
-            console.log('Teste')
             const { question, answer } = card
             this.setState({ question, answer, editCard: true })
         }
@@ -34,20 +33,28 @@ class AddEditCard extends Component {
 
     submit = () => {
         const { question, answer, editCard } = this.state
-        const { title, index } = this.props.navigation.state.params
+        const { title, index, card } = this.props.navigation.state.params
         if (editCard) {
-            this.props.editCard(title, index, { question, answer }).then(() => {
-                Alert.alert('Card changed!')
-                this.setState({ question: '', answer: '' })
-                this.props.navigation.goBack()
-            })
+            this.props
+                .editCard(title, index, {
+                    question,
+                    answer,
+                    favorite: card.favorite
+                })
+                .then(() => {
+                    Alert.alert('Card changed!')
+                    this.setState({ question: '', answer: '' })
+                    this.props.navigation.goBack()
+                })
         } else {
-            this.props.addCard(title, { question, answer }).then(() => {
-                Alert.alert('Card added!')
-                this.setState({ question: '', answer: '' })
-                this.props.incrementCards(title)
-                this.props.navigation.goBack()
-            })
+            this.props
+                .addCard(title, { question, answer, favorite: false })
+                .then(() => {
+                    Alert.alert('Card added!')
+                    this.setState({ question: '', answer: '' })
+                    this.props.incrementCards(title)
+                    this.props.navigation.goBack()
+                })
         }
     }
 

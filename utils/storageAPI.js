@@ -31,10 +31,10 @@ const decks = {
 export const getDecks = () =>
     AsyncStorage.getItem(DECKS_STORAGE_KEY).then((result) => {
         if (result) {
-            let decks = JSON.parse(result)
-            return Object.keys(decks).map((deck) => ({
-                title: decks[deck].title,
-                numCards: decks[deck].questions.length
+            const decks = JSON.parse(result)
+            return Object.keys(decks).map((title) => ({
+                title,
+                numCards: decks[title].questions.length
             }))
         }
         return []
@@ -48,9 +48,33 @@ export const getDeck = (title) =>
 export const getCardsFromDeck = (deckTitle) =>
     AsyncStorage.getItem(DECKS_STORAGE_KEY).then((result) => {
         if (result) {
-            return JSON.parse(result)[deckTitle].questions
+            const { questions } = JSON.parse(result)[deckTitle]
+            return questions.map((question) => ({
+                ...question,
+                title: deckTitle
+            }))
         }
         return []
+    })
+
+export const getFavoriteCards = () =>
+    AsyncStorage.getItem(DECKS_STORAGE_KEY).then((result) => {
+        if (result) {
+            const decks = JSON.parse(result)
+            let cards = []
+            Object.keys(decks).forEach((title) => {
+                cards = [
+                    ...cards,
+                    ...decks[title].questions.reduce((acc, question, index) => {
+                        if (question.favorite) {
+                            acc.push({ ...question, title, index })
+                        }
+                        return acc
+                    }, [])
+                ]
+            })
+            return cards
+        }
     })
 
 export const saveDeckTitle = (title) => {
@@ -78,10 +102,7 @@ export const removeDeck = (title) =>
     AsyncStorage.getItem(DECKS_STORAGE_KEY).then((result) => {
         let json = JSON.parse(result)
         delete json[title]
-        return AsyncStorage.setItem(
-            DECKS_STORAGE_KEY,
-            JSON.stringify(json)
-        ).then(() => Promise.resolve())
+        return AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(json))
     })
 
 export const addCardToDeck = (title, card) =>
@@ -105,13 +126,13 @@ export const updateCardOnDeck = (title, index, card) =>
                     questions: [
                         ...result.questions.slice(0, index),
                         { ...card },
-                        ...result.questions.slice(index+1)
+                        ...result.questions.slice(index + 1)
                     ]
                 }
             })
         )
     )
-    
+
 export const removeCardFromDeck = (title, index) =>
     getDeck(title).then((result) =>
         AsyncStorage.mergeItem(

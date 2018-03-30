@@ -12,13 +12,17 @@ const Header = styled.View`
     width: 100%;
 `
 
-const HeaderCard = ({ title, handleEdit }) => (
+const HeaderCard = ({ title, handleEdit, isFavorite, handleFavorite }) => (
     <Header>
         <IconButton name="edit" onPress={handleEdit} />
         <View style={{ marginTop: 10 }}>
             <H3 color={orange}>{title}</H3>
         </View>
-        <IconButton name="star" />
+        {isFavorite ? (
+            <IconButton name="star" onPress={handleFavorite} />
+        ) : (
+            <IconButton name="star-border" onPress={handleFavorite} />
+        )}
     </Header>
 )
 

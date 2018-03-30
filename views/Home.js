@@ -8,11 +8,7 @@ import { green } from '@colors'
 
 class Home extends Component {
     static navigationOptions = () => ({
-        header: (
-            <HeaderCards
-                title={'Home'}
-            />
-        )
+        header: <HeaderCards title={'Home'} />
     })
 
     render() {
@@ -38,6 +34,7 @@ class Home extends Component {
                     title="Favorites"
                     icon="star"
                     color={green}
+                    handle={() => navigate('Quiz', { isFavorite: true })}
                 />
                 <ItemSeparator />
             </Container>

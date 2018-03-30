@@ -8,7 +8,12 @@ import {
     Alert
 } from 'react-native'
 import HeaderCards from '@components/HeaderCards'
-import { fetchCardsFromDeck, deleteCard } from '@actions/cards'
+import {
+    fetchCardsFromDeck,
+    fetchFavoriteCards,
+    deleteCard,
+    editCard
+} from '@actions/cards'
 import { decrementCards } from '@actions/decks'
 import FlipCard from 'react-native-flip-card'
 import { Container, Card, H1, H2, H3, Badge } from '@styles'
@@ -35,7 +40,12 @@ class Quiz extends Component {
     }
 
     componentDidMount() {
-        this.props.fetchCardsFromDeck(this.props.navigation.state.params.title)
+        const { title, isFavorite } = this.props.navigation.state.params
+        if (isFavorite) {
+            this.props.fetchFavoriteCards()
+        } else {
+            this.props.fetchCardsFromDeck(title)
+        }
     }
 
     handleCorrect = () => {
@@ -55,8 +65,12 @@ class Quiz extends Component {
         this.setState({ indexCards: 0, countCorrect: 0 })
     }
 
-    handleEdit = (card, index) => {
-        const { title } = this.props.navigation.state.params
+    handleEdit = () => {
+        const { navigation: { navigate }, cards } = this.props
+        const { isFavorite } = this.props.navigation.state.params
+        const { indexCards } = this.state
+        const card = cards[indexCards]
+        const { title, index } = card
         ActionSheetIOS.showActionSheetWithOptions(
             {
                 options: ['Cancel', 'Edit', 'Remove'],
@@ -65,9 +79,9 @@ class Quiz extends Component {
             },
             (buttonIndex) => {
                 if (buttonIndex === 1) {
-                    this.props.navigation.navigate('AddEditCard', {
+                    navigate('AddEditCard', {
                         card,
-                        index,
+                        index: indexCards,
                         title
                     })
                 } else if (buttonIndex === 2) {
@@ -83,10 +97,10 @@ class Quiz extends Component {
                                 text: 'OK',
                                 onPress: () =>
                                     this.props
-                                        .deleteCard(title, index)
-                                        .then(() => {
+                                        .deleteCard(title, indexCards)
+                                        .then(() =>
                                             this.props.decrementCards(title)
-                                        })
+                                        )
                             }
                         ],
                         { cancelable: false }
@@ -94,6 +108,17 @@ class Quiz extends Component {
                 }
             }
         )
+    }
+
+    handleFavorite = () => {
+        const { indexCards } = this.state
+        const card = this.props.cards[indexCards]
+        const { title, question, answer } = card
+        this.props.editCard(title, indexCards, {
+            question,
+            answer,
+            favorite: !card.favorite
+        })
     }
 
     render() {
@@ -116,12 +141,9 @@ class Quiz extends Component {
                         >
                             <Card padding color={darkGreen}>
                                 <HeaderCard
-                                    handleEdit={() =>
-                                        this.handleEdit(
-                                            cards[indexCards],
-                                            indexCards
-                                        )
-                                    }
+                                    handleEdit={this.handleEdit}
+                                    handleFavorite={this.handleFavorite}
+                                    isFavorite={cards[indexCards].favorite}
                                     title="Answer"
                                 />
                                 <H1 mgTop="80px" mgBottom="20px">
@@ -129,7 +151,12 @@ class Quiz extends Component {
                                 </H1>
                             </Card>
                             <Card padding color={purple}>
-                                <HeaderCard title="Question" />
+                                <HeaderCard
+                                    handleEdit={this.handleEdit}
+                                    handleFavorite={this.handleFavorite}
+                                    isFavorite={cards[indexCards].favorite}
+                                    title="Question"
+                                />
                                 <H1 mgTop="80px" mgBottom="20px">
                                     {cards[indexCards].answer}
                                 </H1>
@@ -151,7 +178,7 @@ class Quiz extends Component {
                             </Card>
                         </FlipCard>
                     </View>
-                ) : (
+                ) : cards.length > 0 ? (
                     <View>
                         <Badge mgTop="80px" mgBottom="20px">
                             <H2>{`${percenCorrect} %`}</H2>
@@ -163,6 +190,10 @@ class Quiz extends Component {
                             <H2>{`Hits: ${countCorrect}`}</H2>
                         </Badge>
                         <Button onPress={this.handleReset}>Restart</Button>
+                    </View>
+                ) : (
+                    <View style={{marginTop: 50}}>
+                        <H1>There is no cards available</H1>
                     </View>
                 )}
             </Container>
@@ -176,8 +207,10 @@ const mapStateToProps = ({ cards }) => ({
 
 const mapDispatchToProps = {
     fetchCardsFromDeck,
+    fetchFavoriteCards,
     decrementCards,
-    deleteCard
+    deleteCard,
+    editCard
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Quiz)

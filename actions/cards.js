@@ -2,7 +2,8 @@ import {
     getCardsFromDeck,
     addCardToDeck,
     updateCardOnDeck,
-    removeCardFromDeck
+    removeCardFromDeck,
+    getFavoriteCards
 } from '../utils/storageAPI'
 
 export const GET_CARDS = 'GET_CARDS'
@@ -14,19 +15,25 @@ export const fetchCardsFromDeck = (deckTitle) => (dispatch) =>
         dispatch(getCards(cards))
     })
 
+export const fetchFavoriteCards = () => (dispatch) => 
+    getFavoriteCards().then((cards) => {
+        dispatch(getCards(cards))
+    })
+
+
 export const addCard = (deckTitle, card) => (dispatch) =>
     addCardToDeck(deckTitle, card)
 
-export const editCard = (title, index, card) => (dispatch) => 
+export const editCard = (title, index, card) => (dispatch) => {
     updateCardOnDeck(title, index, card).then(() => {
-        dispatch(_editCard(card, index))
+        dispatch(_editCard({ ...card, title }, index))
     })
+}
 
-export const deleteCard = (title, index) => (dispatch) => 
+export const deleteCard = (title, index) => (dispatch) =>
     removeCardFromDeck(title, index).then(() => {
         dispatch(_deleteCard(index))
     })
-
 
 const _editCard = (card, index) => ({
     type: EDIT_CARD,
