@@ -47,7 +47,7 @@ class Decks extends Component {
         })
     }
 
-    handleSwipOpen = (event, gestureState, swipeable) => {
+    handleSwipOpen = (event, gestureState, swipeable, item) => {
         if (
             this.state.currentSwipeable &&
             this.state.currentSwipeable !== swipeable
@@ -79,7 +79,9 @@ class Decks extends Component {
         <Swipeable
             rightButtons={this.rightButtons}
             rightButtonWidth={100}
-            onRightButtonsOpenRelease={this.handleSwipOpen}
+            onRightButtonsOpenRelease={(event, gestureState, swipeable) =>
+                this.handleSwipOpen(event, gestureState, swipeable, item)
+            }
             onRightButtonsCloseRelease={this.resetStates}
         >
             <TouchableOpacity
