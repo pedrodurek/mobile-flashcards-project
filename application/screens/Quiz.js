@@ -17,7 +17,11 @@ import HeaderCard from '@components/HeaderCard'
 import Button from '@components/Button'
 import { purple, darkGreen, green, red } from '@colors'
 import styled from 'styled-components'
-import { confirmAlert } from '@helper'
+import {
+    confirmAlert,
+    enableLocalNotification,
+    disableLocalNotification
+} from '@helper'
 
 const Buttons = styled.View`
     flex-direction: row;
@@ -39,6 +43,10 @@ class Quiz extends Component {
         }
     }
 
+    resetNotification = () => {
+        disableLocalNotification().then(enableLocalNotification)
+    }
+
     handleCorrect = () => {
         this.setState(({ countCorrect, indexCards }) => ({
             countCorrect: countCorrect + 1,
@@ -53,6 +61,7 @@ class Quiz extends Component {
     }
 
     handleReset = () => {
+        this.resetNotification()
         this.setState({ indexCards: 0, countCorrect: 0 })
     }
 
@@ -99,6 +108,11 @@ class Quiz extends Component {
                     this.props._deleteCard(card.id)
                 }
             })
+    }
+    
+    handleBack = () => {
+        this.resetNotification()
+        this.props.navigation.goBack()
     }
 
     render() {
@@ -162,7 +176,7 @@ class Quiz extends Component {
                     </View>
                 ) : cards.length > 0 ? (
                     <View>
-                        <Badge mgTop="80px" mgBottom="20px">
+                        <Badge mgTop="60px" mgBottom="20px">
                             <H2>{`${percenCorrect} %`}</H2>
                         </Badge>
                         <Badge mgBottom="20px">
@@ -171,7 +185,13 @@ class Quiz extends Component {
                         <Badge mgBottom="20px">
                             <H2>{`Hits: ${countCorrect}`}</H2>
                         </Badge>
-                        <Button onPress={this.handleReset}>Restart</Button>
+                        <Button
+                            style={{ marginBottom: 20 }}
+                            onPress={this.handleReset}
+                        >
+                            Restart
+                        </Button>
+                        <Button onPress={this.handleBack}>Back to Deck</Button>
                     </View>
                 ) : (
                     <View style={{ marginTop: 50 }}>

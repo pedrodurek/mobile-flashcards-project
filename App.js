@@ -6,6 +6,7 @@ import { StyleSheet, Text, View, Platform, StatusBar } from 'react-native'
 import thunk from 'redux-thunk'
 import reducer from '@reducers'
 import { MainNavigator } from '@routes'
+import { enableLocalNotification } from '@helper'
 
 class App extends Component {
     state = {
@@ -13,6 +14,7 @@ class App extends Component {
     }
 
     async componentDidMount() {
+        enableLocalNotification()
         await Font.loadAsync({
             'nunito-bold': require('@fonts/Nunito-Bold.ttf')
         })
