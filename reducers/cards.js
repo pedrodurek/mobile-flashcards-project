@@ -7,13 +7,14 @@ const cards = (state = initialState, action) => {
         case GET_CARDS:
             return action.cards
         case EDIT_CARD:
-            return [
-                ...state.slice(0, action.index),
-                { ...action.card },
-                ...state.slice(action.index+1)
-            ]
+            return state.map((card) => {
+                if (card.id === action.card.id) {
+                    return action.card
+                }
+                return card
+            })
         case DELETE_CARD:
-            return state.filter((card, index) => action.index !== index)
+            return state.filter((card) => card.id !== action.id)
         default:
             return state
     }

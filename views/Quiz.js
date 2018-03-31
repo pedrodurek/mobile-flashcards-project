@@ -16,7 +16,7 @@ import {
 } from '@actions/cards'
 import { decrementCards } from '@actions/decks'
 import FlipCard from 'react-native-flip-card'
-import { Container, Card, H1, H2, H3, Badge } from '@styles'
+import { Container, ItemSeparator, Card, H1, H2, H3, Badge } from '@styles'
 import ProgressBar from '@components/ProgressBar'
 import RoundIconButton from '@components/RoundIconButton'
 import HeaderCard from '@components/HeaderCard'
@@ -65,12 +65,17 @@ class Quiz extends Component {
         this.setState({ indexCards: 0, countCorrect: 0 })
     }
 
+    handleDelete = (title, id) => {
+        this.props
+            .deleteCard(title, id)
+            .then(() => this.props.decrementCards(title))
+    }
+
     handleEdit = () => {
         const { navigation: { navigate }, cards } = this.props
         const { isFavorite } = this.props.navigation.state.params
-        const { indexCards } = this.state
-        const card = cards[indexCards]
-        const { title, index } = card
+        const card = cards[this.state.indexCards]
+        const { title, id } = card
         ActionSheetIOS.showActionSheetWithOptions(
             {
                 options: ['Cancel', 'Edit', 'Remove'],
@@ -79,12 +84,11 @@ class Quiz extends Component {
             },
             (buttonIndex) => {
                 if (buttonIndex === 1) {
-                    navigate('AddEditCard', {
-                        card,
-                        index: indexCards,
-                        title
-                    })
+                    navigate('AddEditCard', { card, title })
                 } else if (buttonIndex === 2) {
+                    // confirmAlert({
+                    //     title: 'Remove Card'
+                    // })
                     Alert.alert(
                         'Remove Card',
                         'Are you sure do want to remove this card?',
@@ -95,12 +99,7 @@ class Quiz extends Component {
                             },
                             {
                                 text: 'OK',
-                                onPress: () =>
-                                    this.props
-                                        .deleteCard(title, indexCards)
-                                        .then(() =>
-                                            this.props.decrementCards(title)
-                                        )
+                                onPress: () => this.handleDelete(title, id)
                             }
                         ],
                         { cancelable: false }
@@ -113,12 +112,8 @@ class Quiz extends Component {
     handleFavorite = () => {
         const { indexCards } = this.state
         const card = this.props.cards[indexCards]
-        const { title, question, answer } = card
-        this.props.editCard(title, indexCards, {
-            question,
-            answer,
-            favorite: !card.favorite
-        })
+        const { title, ...rest } = card
+        this.props.editCard(title, { ...rest, favorite: !card.favorite })
     }
 
     render() {
@@ -146,6 +141,7 @@ class Quiz extends Component {
                                     isFavorite={cards[indexCards].favorite}
                                     title="Answer"
                                 />
+                                <ItemSeparator style={{ marginTop: 20 }} />
                                 <H1 mgTop="80px" mgBottom="20px">
                                     {cards[indexCards].question}
                                 </H1>
@@ -157,6 +153,7 @@ class Quiz extends Component {
                                     isFavorite={cards[indexCards].favorite}
                                     title="Question"
                                 />
+                                <ItemSeparator style={{ marginTop: 20 }} />
                                 <H1 mgTop="80px" mgBottom="20px">
                                     {cards[indexCards].answer}
                                 </H1>
@@ -192,7 +189,7 @@ class Quiz extends Component {
                         <Button onPress={this.handleReset}>Restart</Button>
                     </View>
                 ) : (
-                    <View style={{marginTop: 50}}>
+                    <View style={{ marginTop: 50 }}>
                         <H1>There is no cards available</H1>
                     </View>
                 )}

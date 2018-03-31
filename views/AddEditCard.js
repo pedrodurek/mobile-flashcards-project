@@ -33,16 +33,16 @@ class AddEditCard extends Component {
 
     submit = () => {
         const { question, answer, editCard } = this.state
-        const { title, index, card } = this.props.navigation.state.params
+        const { title, card } = this.props.navigation.state.params
         if (editCard) {
             this.props
-                .editCard(title, index, {
+                .editCard(title, {
+                    ...card,
                     question,
-                    answer,
-                    favorite: card.favorite
+                    answer
                 })
                 .then(() => {
-                    Alert.alert('Card changed!')
+                    Alert.alert('Card Updated')
                     this.setState({ question: '', answer: '' })
                     this.props.navigation.goBack()
                 })
@@ -50,7 +50,7 @@ class AddEditCard extends Component {
             this.props
                 .addCard(title, { question, answer, favorite: false })
                 .then(() => {
-                    Alert.alert('Card added!')
+                    Alert.alert('Card Added')
                     this.setState({ question: '', answer: '' })
                     this.props.incrementCards(title)
                     this.props.navigation.goBack()

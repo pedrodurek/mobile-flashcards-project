@@ -2,32 +2,6 @@ import { AsyncStorage } from 'react-native'
 
 export const DECKS_STORAGE_KEY = 'flahcards:decks'
 
-const decks = {
-    React: {
-        title: 'React',
-        questions: [
-            {
-                question: 'What is React?',
-                answer: 'A library for managing user interfaces'
-            },
-            {
-                question: 'Where do you make Ajax requests in React?',
-                answer: 'The componentDidMount lifecycle event'
-            }
-        ]
-    },
-    JavaScript: {
-        title: 'JavaScript',
-        questions: [
-            {
-                question: 'What is a closure?',
-                answer:
-                    'The combination of a function and the lexical environment within which that function was declared.'
-            }
-        ]
-    }
-}
-
 export const getDecks = () =>
     AsyncStorage.getItem(DECKS_STORAGE_KEY).then((result) => {
         if (result) {
@@ -67,7 +41,7 @@ export const getFavoriteCards = () =>
                     ...cards,
                     ...decks[title].questions.reduce((acc, question, index) => {
                         if (question.favorite) {
-                            acc.push({ ...question, title, index })
+                            acc.push({ ...question, title })
                         }
                         return acc
                     }, [])
@@ -117,30 +91,31 @@ export const addCardToDeck = (title, card) =>
         )
     )
 
-export const updateCardOnDeck = (title, index, card) =>
-    getDeck(title).then((result) =>
+export const updateCardOnDeck = (title, card) =>
+    getDeck(title).then((deck) =>
         AsyncStorage.mergeItem(
             DECKS_STORAGE_KEY,
             JSON.stringify({
                 [title]: {
-                    questions: [
-                        ...result.questions.slice(0, index),
-                        { ...card },
-                        ...result.questions.slice(index + 1)
-                    ]
+                    questions: deck.questions.map((question) => {
+                        if (card.id === question.id) {
+                            return card
+                        }
+                        return question
+                    })
                 }
             })
         )
     )
 
-export const removeCardFromDeck = (title, index) =>
+export const removeCardFromDeck = (title, id) =>
     getDeck(title).then((result) =>
         AsyncStorage.mergeItem(
             DECKS_STORAGE_KEY,
             JSON.stringify({
                 [title]: {
                     questions: [
-                        ...result.questions.filter((card, i) => index !== i)
+                        ...result.questions.filter((card) => card.id !== id)
                     ]
                 }
             })

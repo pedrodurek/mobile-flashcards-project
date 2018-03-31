@@ -5,6 +5,7 @@ import {
     removeCardFromDeck,
     getFavoriteCards
 } from '../utils/storageAPI'
+import uuidv1 from 'uuid/v1'
 
 export const GET_CARDS = 'GET_CARDS'
 export const EDIT_CARD = 'EDIT_CARD'
@@ -15,35 +16,35 @@ export const fetchCardsFromDeck = (deckTitle) => (dispatch) =>
         dispatch(getCards(cards))
     })
 
-export const fetchFavoriteCards = () => (dispatch) => 
+export const fetchFavoriteCards = () => (dispatch) =>
     getFavoriteCards().then((cards) => {
         dispatch(getCards(cards))
     })
 
-
 export const addCard = (deckTitle, card) => (dispatch) =>
-    addCardToDeck(deckTitle, card)
-
-export const editCard = (title, index, card) => (dispatch) => {
-    updateCardOnDeck(title, index, card).then(() => {
-        dispatch(_editCard({ ...card, title }, index))
-    })
-}
-
-export const deleteCard = (title, index) => (dispatch) =>
-    removeCardFromDeck(title, index).then(() => {
-        dispatch(_deleteCard(index))
+    addCardToDeck(deckTitle, {
+        id: uuidv1(),
+        ...card
     })
 
-const _editCard = (card, index) => ({
+export const editCard = (title, card) => (dispatch) => 
+    updateCardOnDeck(title, card).then(() => {
+        dispatch(_editCard({ ...card, title }))
+    })
+
+export const deleteCard = (title, id) => (dispatch) =>
+    removeCardFromDeck(title, id).then(() => {
+        dispatch(_deleteCard(id))
+    })
+
+const _editCard = (card, id) => ({
     type: EDIT_CARD,
-    card,
-    index
+    card
 })
 
-const _deleteCard = (index) => ({
+const _deleteCard = (id) => ({
     type: DELETE_CARD,
-    index
+    id
 })
 
 const getCards = (cards) => ({
