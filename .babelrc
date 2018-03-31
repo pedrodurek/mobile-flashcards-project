@@ -9,15 +9,16 @@
         [
             "module-resolver",
             {
-                "root": ["./"],
+                "root": ["./application"],
                 "alias": {
-                    "@actions": "./actions",
-                    "@components": "./components",
-                    "@reducers": "./reducers",
-                    "@utils": "./utils",
-                    "@colors": "./utils/colors.js",
-                    "@styles": "./utils/styles.js",
-                    "@helper": "./utils/helper.js"
+                    "@actions": "./application/actions",
+                    "@components": "./application/components",
+                    "@screens": "./application/screens",
+                    "@reducers": "./application/reducers",
+                    "@utils": "./application/utils",
+                    "@colors": "./application/utils/colors.js",
+                    "@styles": "./application/utils/styles.js",
+                    "@helper": "./application/utils/helper.js"
                 }
             }
         ]
