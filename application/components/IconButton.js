@@ -10,8 +10,9 @@ const IconButton = ({ name, onPress }) => (
     </TouchableOpacity>
 )
 
-IconButton.propTypes = {}
-
-IconButton.defaultProps = {}
+IconButton.propTypes = {
+     name: PropTypes.string.isRequired,
+    onPress: PropTypes.func.isRequired
+}
 
 export default IconButton

@@ -33,7 +33,12 @@ const HomeOption = ({ title, icon, color, handle }) => (
     </ButtonOption>
 )
 
-HomeOption.propTypes = {}
+HomeOption.propTypes = {
+    title: PropTypes.string.isRequired,
+    icon: PropTypes.string.isRequired,
+    color: PropTypes.string,
+    handle: PropTypes.func.isRequired
+}
 
 HomeOption.defaultProps = {
     color: 'black'

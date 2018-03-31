@@ -26,8 +26,11 @@ const HeaderCard = ({ title, handleEdit, isFavorite, handleFavorite }) => (
     </Header>
 )
 
-HeaderCard.propTypes = {}
-
-HeaderCard.defaultProps = {}
+HeaderCard.propTypes = {
+    title: PropTypes.string.isRequired,
+    handleEdit: PropTypes.func.isRequired,
+    handleFavorite: PropTypes.func.isRequired,
+    isFavorite: PropTypes.bool
+}
 
 export default HeaderCard

@@ -20,8 +20,12 @@ const RoundIconButton = ({ onPress, color, name, size, padding }) => (
     </View>
 )
 
-RoundIconButton.propTypes = {}
-
-RoundIconButton.defaultProps = {}
+RoundIconButton.propTypes = {
+    onPress: PropTypes.func.isRequired,
+    color: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    size: PropTypes.number.isRequired,
+    padding: PropTypes.string
+}
 
 export default RoundIconButton

@@ -19,8 +19,10 @@ const Button = ({ onPress, children, style }) => (
     </View>
 )
 
-Button.propTypes = {}
-
-Button.defaultProps = {}
+Button.propTypes = {
+    onPress: PropTypes.func.isRequired,
+    children: PropTypes.node.isRequired,
+    style: PropTypes.object
+}
 
 export default Button
