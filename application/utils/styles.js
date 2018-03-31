@@ -2,6 +2,10 @@ import { Dimensions } from 'react-native'
 import styled from 'styled-components'
 import { green, white, transWhite, darkGreen } from '@colors'
 
+const Font = styled.Text`
+    font-family: nunito-bold;
+`
+
 export const Container = styled.View`
     flex: 1;
     background-color: ${green};
@@ -15,8 +19,7 @@ export const Content = styled.View`
     padding: ${(props) => (props.padding ? '20px' : '0')};
 `
 
-export const Text = styled.Text`
-    font-weight: bold;
+export const Text = Font.extend`
     text-align: center;
     color: ${white};
 `
@@ -31,9 +34,8 @@ export const H2 = Text.extend`
     font-size: 20px;
 `
 
-export const H3 = styled.Text`
+export const H3 = Font.extend`
     font-size: 18px;
-    font-weight: bold;
     text-align: ${(props) => (props.center ? 'center' : 'justify')};
     color: ${(props) => props.color || white};
 `
@@ -49,6 +51,7 @@ export const ItemSeparator = styled.View`
 `
 
 export const Input = styled.TextInput`
+    font-family: nunito-bold;
     border-radius: 10px;
     padding: 15px;
     margin-bottom: 20px;

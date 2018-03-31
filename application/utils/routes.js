@@ -9,9 +9,12 @@ import { darkGreen, white } from '@colors'
 
 export const navOptions = (title) => ({
     title,
-    headerTitleStyle: { color: white },
+    headerTitleStyle: { color: white, fontFamily: 'nunito-bold' },
     headerStyle: {
         backgroundColor: darkGreen
+    },
+    headerBackTitleStyle: {
+        fontFamily: 'nunito-bold'
     },
     headerTintColor: white
 })

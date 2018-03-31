@@ -5,7 +5,7 @@ const initialState = []
 const cards = (state = initialState, action) => {
     switch (action.type) {
         case GET_CARDS:
-            return action.cards
+            return action.cards || []
         case EDIT_CARD:
             return state.map((card) => {
                 if (card.id === action.card.id) {

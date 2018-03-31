@@ -22,10 +22,7 @@ export const fetchFavoriteCards = () => (dispatch) =>
     })
 
 export const addCard = (deckTitle, card) => (dispatch) =>
-    addCardToDeck(deckTitle, {
-        id: uuidv1(),
-        ...card
-    })
+    addCardToDeck(deckTitle, { id: uuidv1(), ...card })
 
 export const editCard = (title, card) => (dispatch) =>
     updateCardOnDeck(title, card).then(() => {

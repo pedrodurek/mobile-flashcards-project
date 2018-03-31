@@ -19,7 +19,8 @@
                     "@colors": "./application/utils/colors.js",
                     "@styles": "./application/utils/styles.js",
                     "@helper": "./application/utils/helper.js",
-                    "@routes": "./application/utils/routes.js"
+                    "@routes": "./application/utils/routes.js",
+                    "@fonts": "./assets/fonts"
                 }
             }
         ]
