@@ -27,7 +27,7 @@ export const addCard = (deckTitle, card) => (dispatch) =>
         ...card
     })
 
-export const editCard = (title, card) => (dispatch) => 
+export const editCard = (title, card) => (dispatch) =>
     updateCardOnDeck(title, card).then(() => {
         dispatch(_editCard({ ...card, title }))
     })

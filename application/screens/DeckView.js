@@ -3,7 +3,6 @@ import { View } from 'react-native'
 import { connect } from 'react-redux'
 import { fetchCardsFromDeck } from '@actions/cards'
 import HeaderCards from '@components/HeaderCards'
-import { Text } from 'native-base'
 import { Container, H1 } from '@styles'
 import Button from '@components/Button'
 

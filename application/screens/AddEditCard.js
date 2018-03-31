@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { View } from 'react-native'
 import { connect } from 'react-redux'
 import HeaderCards from '@components/HeaderCards'
 import Button from '@components/Button'

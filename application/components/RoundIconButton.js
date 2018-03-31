@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View } from 'react-native'
 import { FontAwesome } from '@expo/vector-icons'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'

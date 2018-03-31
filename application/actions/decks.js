@@ -1,4 +1,9 @@
-import { getDecks, saveDeckTitle, updateDeck, removeDeck } from '../utils/storageAPI'
+import {
+    getDecks,
+    saveDeckTitle,
+    updateDeck,
+    removeDeck
+} from '../utils/storageAPI'
 
 export const GET_ALL_DECKS = 'GET_ALL_DECKS'
 export const ADD_DECK = 'ADD_DECK'
@@ -7,22 +12,22 @@ export const INC_CARDS = 'INC_CARDS'
 export const DEC_CARDS = 'DEC_CARDS'
 export const DELETE_DECK = 'DELETE_DECK'
 
-export const fetchDecks = () => (dispatch) => 
+export const fetchDecks = () => (dispatch) =>
     getDecks().then((decks) => {
         dispatch(getAllDecks(decks))
     })
 
-export const renameDeck = (oldTitle, newTitle) => (dispatch) => 
-    updateDeck(oldTitle, newTitle).then(() =>{
+export const renameDeck = (oldTitle, newTitle) => (dispatch) =>
+    updateDeck(oldTitle, newTitle).then(() => {
         dispatch(editDeck(oldTitle, newTitle))
     })
 
-export const deleteDeck = (title) => (dispatch) => 
-    removeDeck(title).then(() =>{
+export const deleteDeck = (title) => (dispatch) =>
+    removeDeck(title).then(() => {
         dispatch(_deleteDeck(title))
     })
 
-export const addDeck = (title) => (dispatch) => 
+export const addDeck = (title) => (dispatch) =>
     saveDeckTitle(title).then(() => {
         dispatch(addNewDeck(title))
     })
@@ -41,7 +46,6 @@ const _deleteDeck = (title) => ({
     type: DELETE_DECK,
     title
 })
-
 
 const editDeck = (oldTitle, newTitle) => ({
     type: EDIT_DECK,

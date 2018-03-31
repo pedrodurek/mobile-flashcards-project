@@ -79,3 +79,10 @@ export const Card = styled.View`
     shadow-color: #000;
     padding: ${(props) => (props.padding ? '20px' : '0')};
 `
+
+export const SwipButton = styled.TouchableHighlight`
+    background-color: ${(props) => props.color || white};
+    height: 100%;
+    justify-content: center;
+    padding-left: 15px;
+`

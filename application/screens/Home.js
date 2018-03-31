@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableOpacity } from 'react-native'
-import { connect } from 'react-redux'
 import HomeOption from '@components/HomeOption'
 import HeaderCards from '@components/HeaderCards'
 import { ItemSeparator, Container } from '@styles'
@@ -42,8 +40,4 @@ class Home extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({})
-
-const mapDispatchToProps = (dispatch) => ({})
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home)
+export default Home

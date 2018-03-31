@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { View, Text, TouchableOpacity, ActionSheetIOS } from 'react-native'
+import { View, ActionSheetIOS } from 'react-native'
 import HeaderCards from '@components/HeaderCards'
 import {
     fetchCardsFromDeck,
@@ -10,7 +10,7 @@ import {
 } from '@actions/cards'
 import { decrementCards } from '@actions/decks'
 import FlipCard from 'react-native-flip-card'
-import { Container, ItemSeparator, Card, H1, H2, H3, Badge } from '@styles'
+import { Container, ItemSeparator, Card, H1, H2, Badge } from '@styles'
 import ProgressBar from '@components/ProgressBar'
 import RoundIconButton from '@components/RoundIconButton'
 import HeaderCard from '@components/HeaderCard'

@@ -1,23 +1,12 @@
 import React, { Component } from 'react'
-import {
-    View,
-    Text,
-    FlatList,
-    TouchableHighlight,
-    TouchableOpacity
-} from 'react-native'
+import { FlatList, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { fetchDecks, deleteDeck } from '@actions/decks'
 import HeaderCards from '@components/HeaderCards'
-import { Container, H2, H3, ItemSeparator } from '@styles'
-import styled from 'styled-components'
+import { Container, H2, H3, ItemSeparator, SwipButton } from '@styles'
 import Swipeable from 'react-native-swipeable'
-import { Feather } from '@expo/vector-icons'
 import { confirmAlert } from '@helper'
-
-const ViewButton = styled.View`
-    padding: 30px 0;
-`
+import { redDark, grey } from '@colors'
 
 class Decks extends Component {
     static navigationOptions = ({ navigation }) => ({
@@ -33,11 +22,15 @@ class Decks extends Component {
         this.props.fetchDecks()
     }
 
+    resetStates = () => {
+        this.setState({ currentSwipeable: null, currentDeck: null })
+    }
+
     handleUpdateList() {
         if (this.state.currentSwipeable) {
             this.state.currentSwipeable.recenter()
-            this.setState({ currentSwipeable: null, currentDeck: null })
         }
+        this.resetStates()
     }
 
     handleEditDeck = ({ title }) => {
@@ -54,59 +47,44 @@ class Decks extends Component {
         })
     }
 
+    handleSwipOpen = (event, gestureState, swipeable) => {
+        if (
+            this.state.currentSwipeable &&
+            this.state.currentSwipeable !== swipeable
+        ) {
+            this.state.currentSwipeable.recenter()
+        }
+        this.setState({
+            currentSwipeable: swipeable,
+            currentDeck: item
+        })
+    }
+
     rightButtons = [
-        <TouchableHighlight
-            style={{
-                backgroundColor: '#999',
-                height: '100%',
-                justifyContent: 'center',
-                paddingLeft: 15
-            }}
+        <SwipButton
+            color={grey}
             onPress={() => this.handleEditDeck(this.state.currentDeck)}
         >
-            <View>
-                <H3>Rename</H3>
-            </View>
-        </TouchableHighlight>,
-        <TouchableHighlight
-            style={{
-                backgroundColor: '#D11606',
-                height: '100%',
-                justifyContent: 'center',
-                paddingLeft: 15
-            }}
+            <H3>Rename</H3>
+        </SwipButton>,
+        <SwipButton
+            color={redDark}
             onPress={() => this.handleRemoveDeck(this.state.currentDeck)}
         >
             <H3>Remove</H3>
-        </TouchableHighlight>
+        </SwipButton>
     ]
 
     renderDeck = ({ item }) => (
         <Swipeable
             rightButtons={this.rightButtons}
             rightButtonWidth={100}
-            onRightButtonsOpenRelease={(event, gestureState, swipeable) => {
-                if (
-                    this.state.currentSwipeable &&
-                    this.state.currentSwipeable !== swipeable
-                ) {
-                    this.state.currentSwipeable.recenter()
-                }
-                this.setState({
-                    currentSwipeable: swipeable,
-                    currentDeck: item
-                })
-            }}
-            onRightButtonsCloseRelease={() =>
-                this.setState({
-                    currentSwipeable: null,
-                    currentDeck: null
-                })
-            }
+            onRightButtonsOpenRelease={this.handleSwipOpen}
+            onRightButtonsCloseRelease={this.resetStates}
         >
             <TouchableOpacity
                 onPress={() => this.showDeck(item.title)}
-                style={{ paddingTop: 30, paddingBottom: 30 }}
+                style={{ paddingVertical: 30 }}
             >
                 <H2>{item.title}</H2>
                 <H2>{`${item.numCards} cards`}</H2>

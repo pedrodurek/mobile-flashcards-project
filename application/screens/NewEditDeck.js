@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
-import { Alert, View, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import HeaderCards from '@components/HeaderCards'
 import Button from '@components/Button'
-import { Text, Item } from 'native-base'
 import { Container, H1, Input } from '@styles'
 import { addDeck, renameDeck } from '@actions/decks'
+import { simpleAlert } from '@helper'
 
 class NewEditDeck extends Component {
     static navigationOptions = ({ navigation }) => ({
@@ -32,13 +31,13 @@ class NewEditDeck extends Component {
         if (oldTitle) {
             this.props.renameDeck(oldTitle, title).then(() => {
                 this.setState({ title: '', oldTitle: '' })
-                Alert.alert('Deck updated!')
+                simpleAlert('Deck Updated')
                 this.props.navigation.popToTop()
             })
         } else {
             this.props.addDeck(this.state.title).then(() => {
                 this.setState({ title: '' })
-                Alert.alert('Deck created!')
+                simpleAlert('Deck Created')
                 this.props.navigation.popToTop()
             })
         }
@@ -64,11 +63,9 @@ class NewEditDeck extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({})
-
 const mapDispatchToProps = {
     addDeck,
     renameDeck
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewEditDeck)
+export default connect(null, mapDispatchToProps)(NewEditDeck)

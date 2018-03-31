@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View } from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons'
 import styled from 'styled-components'
 import { H2 } from '@styles'

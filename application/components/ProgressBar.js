@@ -1,5 +1,4 @@
 import React from 'react'
-import { View, Text } from 'react-native'
 import PropTypes from 'prop-types'
 import { white, transWhite, darkGreen } from '@colors'
 import { Span } from '@styles'
