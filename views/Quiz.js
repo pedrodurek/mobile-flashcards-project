@@ -1,12 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import {
-    View,
-    Text,
-    TouchableOpacity,
-    ActionSheetIOS,
-    Alert
-} from 'react-native'
+import { View, Text, TouchableOpacity, ActionSheetIOS } from 'react-native'
 import HeaderCards from '@components/HeaderCards'
 import {
     fetchCardsFromDeck,
@@ -23,6 +17,7 @@ import HeaderCard from '@components/HeaderCard'
 import Button from '@components/Button'
 import { purple, darkGreen, green, red } from '@colors'
 import styled from 'styled-components'
+import { confirmAlert } from '@helper'
 
 const Buttons = styled.View`
     flex-direction: row;
@@ -86,24 +81,11 @@ class Quiz extends Component {
                 if (buttonIndex === 1) {
                     navigate('AddEditCard', { card, title })
                 } else if (buttonIndex === 2) {
-                    // confirmAlert({
-                    //     title: 'Remove Card'
-                    // })
-                    Alert.alert(
-                        'Remove Card',
-                        'Are you sure do want to remove this card?',
-                        [
-                            {
-                                text: 'Cancel',
-                                style: 'cancel'
-                            },
-                            {
-                                text: 'OK',
-                                onPress: () => this.handleDelete(title, id)
-                            }
-                        ],
-                        { cancelable: false }
-                    )
+                    confirmAlert({
+                        title: 'Remove Card',
+                        text: 'Are you sure do want to remove this card?',
+                        handleConfirm: () => this.handleDelete(title, id)
+                    })
                 }
             }
         )

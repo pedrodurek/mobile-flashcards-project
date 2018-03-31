@@ -16,7 +16,8 @@
                     "@reducers": "./reducers",
                     "@utils": "./utils",
                     "@colors": "./utils/colors.js",
-                    "@styles": "./utils/styles.js"
+                    "@styles": "./utils/styles.js",
+                    "@helper": "./utils/helper.js"
                 }
             }
         ]
