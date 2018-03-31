@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { View, ActionSheetIOS } from 'react-native'
-import HeaderCards from '@components/HeaderCards'
 import {
     fetchCardsFromDeck,
     fetchFavoriteCards,
@@ -25,10 +24,6 @@ const Buttons = styled.View`
 `
 
 class Quiz extends Component {
-    static navigationOptions = ({ navigation }) => ({
-        header: <HeaderCards title={'Quiz'} navigation={navigation} />
-    })
-
     state = {
         indexCards: 0,
         countCorrect: 0

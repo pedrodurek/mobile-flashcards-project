@@ -1,15 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import HeaderCards from '@components/HeaderCards'
 import Button from '@components/Button'
 import { Container, H1, Input } from '@styles'
 import { addDeck, renameDeck } from '@actions/decks'
 import { simpleAlert } from '@helper'
+import { navOptions } from '@routes'
 
 class NewEditDeck extends Component {
-    static navigationOptions = ({ navigation }) => ({
-        header: <HeaderCards title={'New Deck'} navigation={navigation} />
-    })
+    static navigationOptions = ({ navigation }) =>
+        navOptions(navigation.state.params ? 'Edit Deck' : 'New Deck')
 
     state = {
         title: '',

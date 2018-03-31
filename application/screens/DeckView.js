@@ -2,19 +2,13 @@ import React, { Component } from 'react'
 import { View } from 'react-native'
 import { connect } from 'react-redux'
 import { fetchCardsFromDeck } from '@actions/cards'
-import HeaderCards from '@components/HeaderCards'
 import { Container, H1 } from '@styles'
 import Button from '@components/Button'
+import { navOptions } from '@routes'
 
 class DeckView extends Component {
-    static navigationOptions = ({ navigation }) => ({
-        header: (
-            <HeaderCards
-                title={navigation.state.params.title}
-                navigation={navigation}
-            />
-        )
-    })
+    static navigationOptions = ({ navigation }) =>
+        navOptions(navigation.state.params.title)
 
     addCard = () =>
         this.props.navigation.navigate('AddEditCard', {

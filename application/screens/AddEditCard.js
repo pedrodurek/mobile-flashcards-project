@@ -1,17 +1,16 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import HeaderCards from '@components/HeaderCards'
 import Button from '@components/Button'
 import { addCard, editCard } from '@actions/cards'
 import { incrementCards } from '@actions/decks'
 import { Container, Input, H1 } from '@styles'
 import { white } from '@colors'
 import { simpleAlert } from '@helper'
+import { navOptions } from '@routes'
 
 class AddEditCard extends Component {
-    static navigationOptions = ({ navigation }) => ({
-        header: <HeaderCards title={'Add Card'} navigation={navigation} />
-    })
+    static navigationOptions = ({ navigation }) =>
+        navOptions(navigation.state.params ? 'Edit Card' : 'Add Card')
 
     state = {
         question: '',

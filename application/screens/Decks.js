@@ -2,17 +2,12 @@ import React, { Component } from 'react'
 import { FlatList, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { fetchDecks, deleteDeck } from '@actions/decks'
-import HeaderCards from '@components/HeaderCards'
 import { Container, H2, H3, ItemSeparator, SwipButton } from '@styles'
 import Swipeable from 'react-native-swipeable'
 import { confirmAlert } from '@helper'
 import { redDark, grey } from '@colors'
 
 class Decks extends Component {
-    static navigationOptions = ({ navigation }) => ({
-        header: <HeaderCards title={'Decks'} navigation={navigation} />
-    })
-
     state = {
         currentSwipeable: null,
         currentDeck: null

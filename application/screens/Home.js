@@ -1,14 +1,9 @@
 import React, { Component } from 'react'
 import HomeOption from '@components/HomeOption'
-import HeaderCards from '@components/HeaderCards'
 import { ItemSeparator, Container } from '@styles'
 import { green } from '@colors'
 
 class Home extends Component {
-    static navigationOptions = () => ({
-        header: <HeaderCards title={'Home'} />
-    })
-
     render() {
         const { navigate } = this.props.navigation
         return (
