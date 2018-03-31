@@ -20,7 +20,7 @@ $ npm start
 ```
 
 ## Screens
-![](images/print1.png){:height="50%" width="50%"}
+![](images/print1.png)
 ![](images/print2.png)
 ![](images/print3.png)
 ![](images/print4.png)
