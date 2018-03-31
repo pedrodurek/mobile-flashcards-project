@@ -1,16 +1,17 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import Button from '@components/Button'
 import { addCard, editCard } from '@actions/cards'
 import { incrementCards } from '@actions/decks'
-import { Container, Input, H1 } from '@styles'
-import { white } from '@colors'
+import { ContainerKeyboard, Container, Input, H1 } from '@styles'
+import { white, green } from '@colors'
 import { simpleAlert } from '@helper'
 import { navOptions } from '@routes'
 
 class AddEditCard extends Component {
     static navigationOptions = ({ navigation }) =>
-        navOptions(navigation.state.params ? 'Edit Card' : 'Add Card')
+        navOptions(navigation.state.params.card ? 'Edit Card' : 'Add Card')
 
     state = {
         question: '',
@@ -60,23 +61,25 @@ class AddEditCard extends Component {
     render() {
         const { question, answer } = this.state
         return (
-            <Container padding center>
-                <H1 mgTop="40px">Enter with your question and answer</H1>
-                <Input
-                    style={{ marginTop: 50 }}
-                    value={question}
-                    placeholder="Enter with the question"
-                    onChangeText={this.handleQuestion}
-                    placeholderTextColor={white}
-                />
-                <Input
-                    value={answer}
-                    placeholder="Enter with the answer"
-                    onChangeText={this.handleAnswer}
-                    placeholderTextColor={white}
-                />
-                <Button onPress={this.submit}>Submit</Button>
-            </Container>
+            <KeyboardAwareScrollView style={{ backgroundColor: green }}>
+                <Container padding center>
+                    <H1 mgTop="40px">Enter with your question and answer</H1>
+                    <Input
+                        style={{ marginTop: 50 }}
+                        value={question}
+                        placeholder="Enter with the question"
+                        onChangeText={this.handleQuestion}
+                        placeholderTextColor={white}
+                    />
+                    <Input
+                        value={answer}
+                        placeholder="Enter with the answer"
+                        onChangeText={this.handleAnswer}
+                        placeholderTextColor={white}
+                    />
+                    <Button onPress={this.submit}>Submit</Button>
+                </Container>
+            </KeyboardAwareScrollView>
         )
     }
 }

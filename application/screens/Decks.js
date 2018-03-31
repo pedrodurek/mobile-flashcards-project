@@ -37,7 +37,10 @@ class Decks extends Component {
         confirmAlert({
             title: 'Remove Deck',
             text: 'Are you sure you want to remove this deck?',
-            handleConfirm: () => this.props.deleteDeck(title),
+            handleConfirm: () => {
+                this.props.deleteDeck(title)
+                this.state.currentSwipeable.recenter()
+            },
             handleCancel: () => this.state.currentSwipeable.recenter()
         })
     }
@@ -102,7 +105,6 @@ class Decks extends Component {
 
     render() {
         const { decks } = this.props
-        console.log(decks.length)
         if (decks.length > 0) {
             return (
                 <Container>

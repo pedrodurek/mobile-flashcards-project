@@ -29,7 +29,6 @@ const decks = (state = initialState, action) => {
                 }
                 return deck
             })
-            console.warn(newState)
             return newState
         case INC_CARDS:
             return state.map((deck) => {
