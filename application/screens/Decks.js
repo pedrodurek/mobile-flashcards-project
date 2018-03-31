@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { FlatList, TouchableOpacity } from 'react-native'
+import { View, FlatList, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { fetchDecks, deleteDeck } from '@actions/decks'
-import { Container, H2, H3, ItemSeparator, SwipButton } from '@styles'
+import { Container, H1, H2, H3, ItemSeparator, SwipButton } from '@styles'
 import Swipeable from 'react-native-swipeable'
 import { confirmAlert } from '@helper'
 import { redDark, grey } from '@colors'
@@ -102,18 +102,28 @@ class Decks extends Component {
 
     render() {
         const { decks } = this.props
+        console.log(decks.length)
+        if (decks.length > 0) {
+            return (
+                <Container>
+                    <ItemSeparator />
+                    <FlatList
+                        style={{ width: '100%' }}
+                        data={decks}
+                        extraData={decks}
+                        renderItem={this.renderDeck}
+                        ItemSeparatorComponent={ItemSeparator}
+                        keyExtractor={(item, index) => index}
+                        ListFooterComponent={ItemSeparator}
+                    />
+                </Container>
+            )
+        }
         return (
-            <Container>
-                <ItemSeparator />
-                <FlatList
-                    style={{ width: '100%' }}
-                    data={decks}
-                    extraData={decks}
-                    renderItem={this.renderDeck}
-                    ItemSeparatorComponent={ItemSeparator}
-                    keyExtractor={(item, index) => index}
-                    ListFooterComponent={ItemSeparator}
-                />
+            <Container padding center>
+                <View style={{ marginTop: 50 }}>
+                    <H1>There is no decks available</H1>
+                </View>
             </Container>
         )
     }

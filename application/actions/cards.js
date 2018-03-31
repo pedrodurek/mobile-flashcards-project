@@ -37,12 +37,12 @@ export const deleteCard = (title, id) => (dispatch) =>
         dispatch(_deleteCard(id))
     })
 
-const _editCard = (card, id) => ({
+const _editCard = (card) => ({
     type: EDIT_CARD,
     card
 })
 
-const _deleteCard = (id) => ({
+export const _deleteCard = (id) => ({
     type: DELETE_CARD,
     id
 })

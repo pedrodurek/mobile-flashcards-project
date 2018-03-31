@@ -5,6 +5,7 @@ import {
     fetchCardsFromDeck,
     fetchFavoriteCards,
     deleteCard,
+    _deleteCard,
     editCard
 } from '@actions/cards'
 import { decrementCards } from '@actions/decks'
@@ -88,9 +89,16 @@ class Quiz extends Component {
 
     handleFavorite = () => {
         const { indexCards } = this.state
+        const { isFavorite } = this.props.navigation.state.params
         const card = this.props.cards[indexCards]
         const { title, ...rest } = card
-        this.props.editCard(title, { ...rest, favorite: !card.favorite })
+        this.props
+            .editCard(title, { ...rest, favorite: !card.favorite })
+            .then(() => {
+                if (isFavorite) {
+                    this.props._deleteCard(card)
+                }
+            })
     }
 
     render() {
@@ -184,6 +192,7 @@ const mapDispatchToProps = {
     fetchFavoriteCards,
     decrementCards,
     deleteCard,
+    _deleteCard,
     editCard
 }
 
