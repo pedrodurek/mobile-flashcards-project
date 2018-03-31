@@ -96,7 +96,7 @@ class Quiz extends Component {
             .editCard(title, { ...rest, favorite: !card.favorite })
             .then(() => {
                 if (isFavorite) {
-                    this.props._deleteCard(card)
+                    this.props._deleteCard(card.id)
                 }
             })
     }
