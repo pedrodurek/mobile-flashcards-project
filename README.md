@@ -20,13 +20,14 @@ $ npm start
 ```
 
 ## Screens
-<img src="images/print1.png" width="200">
-<img src="images/print2.png" width="200">
-<img src="images/print3.png" width="200">
-<img src="images/print4.png" width="200">
-<img src="images/print5.png" width="200">
-<img src="images/print6.png" width="200">
-<img src="images/print7.png" width="200">
+![](images/print1.png){:height="50%" width="50%"}
+![](images/print2.png)
+![](images/print3.png)
+![](images/print4.png)
+![](images/print5.png)
+![](images/print6.png)
+![](images/print7.png)
+
 
 ## Libraries and dependencies
 * [react-native](https://github.com/facebook/react-native)
