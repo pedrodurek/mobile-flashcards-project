@@ -27,6 +27,8 @@ $ npm start
 ![](images/print5.png)
 ![](images/print6.png)
 ![](images/print7.png)
+![](images/print8.png)
+![](images/print9.png)
 
 
 ## Libraries and dependencies
