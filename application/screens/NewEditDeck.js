@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import Button from '@components/Button'
 import { Container, H1, Input } from '@styles'
@@ -7,7 +7,7 @@ import { simpleAlert } from '@helper'
 import { navOptions } from '@routes'
 import { white } from '@colors'
 
-class NewEditDeck extends Component {
+class NewEditDeck extends PureComponent {
     static navigationOptions = ({ navigation }) =>
         navOptions(navigation.state.params ? 'Edit Deck' : 'New Deck')
 

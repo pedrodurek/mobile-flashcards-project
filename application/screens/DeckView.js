@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { View } from 'react-native'
 import { connect } from 'react-redux'
 import { fetchCardsFromDeck } from '@actions/cards'
@@ -6,7 +6,7 @@ import { Container, H1 } from '@styles'
 import Button from '@components/Button'
 import { navOptions } from '@routes'
 
-class DeckView extends Component {
+class DeckView extends PureComponent {
     static navigationOptions = ({ navigation }) =>
         navOptions(navigation.state.params.title)
 

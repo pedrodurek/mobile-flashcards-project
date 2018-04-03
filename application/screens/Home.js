@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import HomeOption from '@components/HomeOption'
 import { ItemSeparator, Container } from '@styles'
 import { green } from '@colors'
 
-class Home extends Component {
+class Home extends PureComponent {
     render() {
         const { navigate } = this.props.navigation
         return (

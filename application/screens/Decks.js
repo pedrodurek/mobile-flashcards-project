@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { View, FlatList, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { fetchDecks, deleteDeck } from '@actions/decks'
@@ -7,7 +7,7 @@ import Swipeable from 'react-native-swipeable'
 import { confirmAlert } from '@helper'
 import { darkRed, grey } from '@colors'
 
-class Decks extends Component {
+class Decks extends PureComponent {
     state = {
         currentSwipeable: null,
         currentDeck: null

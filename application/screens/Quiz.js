@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { View, ActionSheetIOS } from 'react-native'
 import {
@@ -28,7 +28,7 @@ const Buttons = styled.View`
     margin-top: 20;
 `
 
-class Quiz extends Component {
+class Quiz extends PureComponent {
     state = {
         indexCards: 0,
         countCorrect: 0

@@ -5,7 +5,7 @@ export const green = '#009F47'
 export const purple = '#51264F'
 export const orange = '#FF866E'
 export const red = '#E85123'
-export const redDark = '#D11606'
+export const darkRed = '#D11606'
 export const grey = '#999'
 
 

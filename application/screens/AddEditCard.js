@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import Button from '@components/Button'
@@ -9,7 +9,7 @@ import { white, green } from '@colors'
 import { simpleAlert } from '@helper'
 import { navOptions } from '@routes'
 
-class AddEditCard extends Component {
+class AddEditCard extends PureComponent {
     static navigationOptions = ({ navigation }) =>
         navOptions(navigation.state.params.card ? 'Edit Card' : 'Add Card')
 
