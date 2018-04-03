@@ -26,7 +26,7 @@ export const simpleAlert = (title) => {
     Alert.alert(title)
 }
 
-const settingsLocalNotficiation = () => ({
+const settingsLocalNotficiation = {
     title: "Long time no see you!",
     body: "Don't forget to take a quiz today!",
     ios: {
@@ -38,7 +38,7 @@ const settingsLocalNotficiation = () => ({
         sticky: false,
         vibrate: true
     }
-})
+}
 
 export const disableLocalNotification = () =>
     AsyncStorage.removeItem(NOTIFICATION_KEY).then(
