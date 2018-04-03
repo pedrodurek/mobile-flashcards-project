@@ -32,15 +32,23 @@ class NewEditDeck extends Component {
             this.props.renameDeck(oldTitle, title).then(() => {
                 this.setState({ title: '', oldTitle: '' })
                 simpleAlert('Deck Updated')
-                this.props.navigation.popToTop()
+                this.goToDeckView(title)
             })
         } else {
             this.props.addDeck(this.state.title).then(() => {
                 this.setState({ title: '' })
                 simpleAlert('Deck Created')
-                this.props.navigation.popToTop()
+                this.goToDeckView(title)
             })
         }
+    }
+
+    goToDeckView = (title) => {
+        this.props.navigation.dispatch({
+            routeName: 'Decks',
+            type: 'ReplaceCurrentScreen'
+        })
+        this.props.navigation.navigate('DeckView', { title })
     }
 
     handleChange = (title) => this.setState({ title })

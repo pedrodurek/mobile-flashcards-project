@@ -26,7 +26,8 @@ class App extends Component {
         if (!this.state.loading) {
             return (
                 <Provider store={store}>
-                    <View style={{ flex: 1, backgroundColor: '#009F47' }}>
+                    <View style={{ flex: 1 }}>
+                        <StatusBar barStyle="light-content" />
                         <MainNavigator />
                     </View>
                 </Provider>

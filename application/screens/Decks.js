@@ -5,7 +5,7 @@ import { fetchDecks, deleteDeck } from '@actions/decks'
 import { Container, H1, H2, H3, ItemSeparator, SwipButton } from '@styles'
 import Swipeable from 'react-native-swipeable'
 import { confirmAlert } from '@helper'
-import { redDark, grey } from '@colors'
+import { darkRed, grey } from '@colors'
 
 class Decks extends Component {
     state = {
@@ -66,7 +66,7 @@ class Decks extends Component {
             <H3>Rename</H3>
         </SwipButton>,
         <SwipButton
-            color={redDark}
+            color={darkRed}
             onPress={() => this.handleRemoveDeck(this.state.currentDeck)}
         >
             <H3>Remove</H3>
